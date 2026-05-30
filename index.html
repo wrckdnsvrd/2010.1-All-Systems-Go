@@ -1,0 +1,3602 @@
+<!-- DIGITAL PUBLISHING 2026 FBAUP
+     @ Carolina Machado, Joana Barbosa, Mariana Marinho, Mariana Martins, Sasah Monteiro
+     Mentored @ Pedro Cardoso
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="author" content="Carolina Machado, Joana Barbosa, Mariana Marinha, Mariana Martins, Sasah Monteiro">
+<meta name="description" content="2010.1: All Systems Go is an interactive web-based story inspired by 2001: A Space Odyssey.">
+<title>2010.1: All Systems Go</title>
+<link rel="icon" type="image/x-icon" href="ASSETS/IMAGES/favicon_v2.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+
+  --font: "League Spartan", sans-serif;
+
+  /* Color variables — inspect element to find relevant object class, and update accordingly if needed */
+
+  --black: #000;
+  --white: #fff;
+  
+  /* Accent color */
+  --accent: rgb(200, 0, 0);
+  --accent-10: rgba(200, 0, 0, 0.1);
+  --accent-30: rgba(200, 0, 0, 0.3);
+  --accent-40: rgba(200, 0, 0, 0.4);
+  --accent-50: rgba(200, 0, 0, 0.5);
+  --accent-60: rgba(200, 0, 0, 0.6);
+  --accent-70: rgba(200, 0, 0, 0.7);
+  --accent-80: rgba(200, 0, 0, 0.8);
+  
+  /* Light foreground variations */
+  --light-fg: rgb(243, 232, 232);
+  --light-fg-30: rgba(243, 232, 232, 0.3);
+  --light-fg-70: rgba(243, 232, 232, 0.7);
+  --light-fg-80: rgba(243, 232, 232, 0.8);
+  --light-fg-90: rgba(243, 232, 232, 0.9);
+  
+  /* Bright accent (highlights) */
+  --bright-accent: rgb(255, 50, 50);
+  --bright-accent-50: rgba(255, 50, 50, 0.5);
+  --bright-accent-80: rgba(255, 50, 50, 0.8);
+  --bright-accent-90: rgba(255, 50, 50, 0.9);
+  --bright-accent-100: rgba(255, 50, 50, 1);
+  
+  /* Dark browns */
+  --dark-brown: rgb(68, 0, 0);
+  --dark-brown-30: rgba(136, 15, 15, 0.3);
+  --dark-brown-100: rgb(78, 1, 1);
+  
+  /* Very dark backgrounds */
+  --very-dark-bg: rgba(30, 18, 14, 1);
+  --very-dark-brown: rgba(10, 6, 4, 1);
+  --very-light-beige: rgb(242, 228, 228);
+  --light-beige: rgba(232, 213, 213, 0.6);
+  
+  /* Black with opacity */
+  --black-40: rgba(0, 0, 0, 0.4);
+  --black-50: rgba(0, 0, 0, 0.5);
+  --black-60: rgba(0, 0, 0, 0.6);
+  --black-80: rgba(0, 0, 0, 0.8);
+}
+
+html, body { height: 100%; }
+body {
+  background: var(--black);
+  color: var(--light-fg);
+  font-family: var(--font);
+  font-size: 13px;
+  line-height: 1.5;
+  overflow: hidden;
+}
+
+/* Apply League Spartan to all text except buttons */
+* {
+  font-family: var(--font);
+}
+
+button, input[type="button"], input[type="submit"], input[type="reset"] {
+  font-family: inherit;
+}
+
+/* Utility classes and general layout styles. Each "screen" (landing, dashboard, ending) is positioned absolutely and shown/hidden by toggling the "active" class. The dashboard uses a flex layout to arrange the control panel and the right column, which contains HAL's eye panel and the dialogue panel. The control panel uses a grid layout for the terminals, which adjusts based on screen size for responsiveness. */
+.screen {
+  position: fixed; inset: 0;
+  display: none;
+}
+.screen.active { display: flex; }
+
+:root {
+    /* Colors */
+    --mainColor: #000000;
+    --secondColor: #ffffff;
+    --auxColor: #FF3131;
+
+    /* Fonts */
+    --mainFont: 'CyberpunkWaifus', sans-serif;
+}
+
+/* --- FONTS --- */
+
+@font-face {
+    font-family: 'CyberpunkWaifus';
+    src: url('../ASSETS/FONTS/CyberpunkWaifus.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* --- BODY --- */
+
+body {
+    background-color: var(--mainColor);
+    font-family: var(--mainFont);
+}
+
+/* --- VIDEO --- */
+
+.introduction {
+    position:relative;
+    display:flex;
+    height: 100vh;
+    width:100vw;
+
+    overflow:hidden;
+    justify-content:center;
+    z-index: 1;
+    transition: opacity 0.75s ease-in-out;
+    background-color: var(--mainColor);
+}
+
+video {
+    position: relative;
+
+}
+
+.introduction.fade-out {
+    opacity: 0;
+}
+
+/* --- MENU --- */
+.menu {
+    position:absolute;
+    display:flex;
+    flex-direction:column;
+
+    align-items:center;
+    justify-content:center;
+
+    top: 0;
+
+    width:100vw;
+    height:100%;
+
+    z-index: -1;
+
+    background-image: url(../ASSETS/IMAGES/Background.jpg);
+    background-position: center;
+
+    opacity: 1;
+    transition: opacity 0.5s ease;
+}
+
+.menu img {
+    width: 75%;
+    height: auto;
+    opacity: 70%;
+    mix-blend-mode:color-dodge;
+
+}
+
+.menu video {
+    position:absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+    mix-blend-mode: lighten;
+    z-index: 0;
+}
+
+.menu span {
+    position: relative;
+    width:10rem;
+    height: auto;
+    color: var(--auxColor);
+    mix-blend-mode: color-dodge;
+    opacity: 70%;
+}
+
+#crt-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.18;
+  mix-blend-mode: screen;
+}
+
+#landing {
+  align-items: center; justify-content: center;
+  background: var(--black);
+}
+#landing .landing-bg {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 0.95;
+}
+#landing #btn-start,
+#btn-begin-mission {
+  position: absolute; bottom: 18%; left: 50%; transform: translateX(-50%);
+  background: none; border: none;
+  cursor: pointer; font-family: inherit;
+  transition: opacity 0.2s, filter 0.2s;
+  padding: 0;
+  opacity: 0.85;
+  z-index: 10;
+}
+#landing #btn-start img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 300px;
+}
+#landing #btn-start:hover,
+#btn-begin-mission:hover {
+  opacity: 1;
+  filter: brightness(1.1) drop-shadow(0 0 8px var(--bright-accent-80));
+}
+
+.hidden-screen {
+  display: none !important;
+}
+
+.landing-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.landing-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+.landing-title {
+  width: min(90vw, 700px);
+}
+
+#loading {
+  background: black;
+  justify-content: center;
+  align-items: center;
+}
+
+#loading-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#intro {
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  background: black;
+}
+
+.intro-panel {
+  width: min(900px, 100%);
+  background: rgba(0,0,0,0.88);
+  border: 1px solid rgba(255,255,255,0.12);
+  padding: 3rem;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+#btn-begin-mission {
+  position: relative;
+  inset: auto;
+  transform: none;
+  align-self: flex-start;
+  margin-top: 0.5rem;
+  padding: 0;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  opacity: 0.65;
+}
+
+#start-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+#start-btn img {
+  width: 220px;
+}
+
+#intro-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.intro-panel {
+  width: min(900px, 100%);
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(0,0,0,0.85);
+  padding: 3rem;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.intro-panel h2 {
+  letter-spacing: 0.2rem;
+}
+
+
+.intro {
+    position:absolute;
+    display:flex;
+    flex-direction:column;
+
+    align-items:center;
+    justify-content:center;
+
+    top: 0;
+
+    width:100vw;
+    height:100%;
+
+    /* keep intro above the page background so its controls are interactive */
+    z-index: 0;
+
+    background-color: var(--mainColor);
+    background-position: center;
+    background-size: cover;
+
+    opacity: 1;
+    transition: opacity 0.5s ease;
+}
+
+/* --- OVERLAY --- */
+.intro video {
+    position:absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+    mix-blend-mode: lighten;
+    z-index: 0;
+}
+
+/* --- TEXT --- */
+
+.text {
+    padding: 0 20%;
+    justify-items: start;
+    text-align: start;
+    /* place text above the video overlay */
+    position: relative;
+    z-index: 2;
+}
+
+.intro p {
+    color: var(--auxColor);
+    font-size: 1rem;
+    text-align: start;
+
+    padding-bottom: 0.5rem;
+    opacity: 0.4;
+}
+
+/* --- EFFECT --- */
+
+.effect {
+    position:absolute;
+    z-index: 1;
+    mix-blend-mode: color-dodge;
+}
+
+/* --- BUTTON --- */
+
+/* specifically target the start button so it's clickable above the video */
+.startButton {
+    display: inline-block;
+    margin-top: 1rem;
+    position: relative;
+}
+.startButton a {
+    color: var(--auxColor);
+    opacity: 0.4;
+    text-decoration: none;
+    pointer-events: auto;
+}
+
+.startButton a:hover {
+    opacity: 0.9;
+}
+/* If the video is intercepting pointers, allow clicks to pass through except where we want interaction */
+.intro video {
+    pointer-events: none;
+}
+
+
+
+#begin-mission-btn {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: rgb(200,0,0);
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+#ending-video-screen {
+  position: fixed;
+  inset: 0;
+  background: black;
+  z-index: 8000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#ending-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#ending {
+  align-items: center; justify-content: center;
+  background: var(--black);
+  padding: 32px;
+}
+#ending .ending-grid {
+  display: grid; grid-template-columns: 180px 1fr; gap: 32px;
+  width: 100%; max-width: 960px;
+}
+#ending .ending-meta {
+  font-size: 10px; text-transform: uppercase; letter-spacing: 0.3em;
+  color: var(--accent-60); margin-bottom: 8px;
+}
+#ending h1 {
+  font-size: 24px; font-weight: bold; letter-spacing: 0.15em;
+  color: var(--accent); margin-bottom: 24px;
+  text-shadow: 0 0 8px var(--accent-80), 0 0 16px var(--accent-40);
+}
+#ending .ending-body {
+  white-space: pre-wrap; font-family: var(--font);
+  font-size: 14px; line-height: 1.6; color: var(--light-fg);
+}
+#ending .ending-stats {
+  margin-top: 32px;
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.2em;
+  color: var(--accent-70); display: flex; gap: 24px;
+}
+#ending .restart-btn {
+  margin-top: 24px; align-self: start;
+  border: 1px solid var(--accent-60);
+  background: var(--black-60); padding: 8px 16px;
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.2em;
+  color: var(--accent); cursor: pointer; font-family: inherit;
+  transition: all 0.2s;
+}
+#ending .restart-btn:hover {
+  background: var(--accent-10);
+  color: var(--bright-accent);
+}
+
+#dashboard {
+  flex-direction: column;
+  padding: 16px;
+  gap: 12px;
+  background: var(--black);
+}
+@media (min-width: 1024px) {
+  #dashboard { flex-direction: row; }
+}
+
+#control-panel {
+  flex: 1 1 auto;
+  display: flex; flex-direction: column; gap: 10px;
+  border: 1px solid var(--accent-50);
+  background: var(--black-60);
+  padding: 16px;
+  min-height: 0;
+}
+#control-panel header {
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 10px; text-transform: uppercase; letter-spacing: 0.25em;
+  color: var(--accent);
+  text-shadow: 0 0 8px var(--accent-80), 0 0 16px var(--accent-40);
+  flex-shrink: 0;
+}
+#control-panel header .stats { display: flex; gap: 16px; color: var(--accent-80); }
+#control-panel header .stats b { color: var(--bright-accent); }
+
+#terminals {
+  flex: 1 1 auto;
+  display: grid;
+  grid-template-columns: 10fr 4fr 12fr 12fr;
+  gap: 10px;
+  min-height: 0;
+  overflow: auto;
+}
+@media (max-width: 1023px) {
+  #terminals { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 639px) {
+  #terminals { grid-template-columns: 1fr; }
+
+  .drive-body {
+    position: static;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 100%;
+  }
+
+  /* On smaller screens, we move the drive ID and type inside the drive body for better layout, and adjust their styles accordingly. 
+     IMPORTANT: Review!!! Doesn't seem like it's working.*/
+  .drive-id,
+  .drive-type {
+    position: static;
+    transform: none;
+  }
+
+  .drive-id {
+    font-size: 24px;
+    line-height: 1;
+  }
+
+  .drive-type {
+    font-size: 10px;
+    margin-top: 2px;
+    opacity: 0.6;
+    letter-spacing: 1px;
+    gap: 6px;
+}
+  }
+
+
+#control-panel footer {
+  flex-shrink: 0;
+  margin-top: 6px; border-top: 1px solid var(--accent-30);
+  padding-top: 6px; font-size: 9px; line-height: 1.5;
+  color: var(--accent-60);
+}
+
+.terminal-block {
+  display: flex; flex-direction: column;
+  min-height: 0;
+}
+.terminal-label {
+  font-size: 8px; text-transform: uppercase;
+  line-height: 1.2; letter-spacing: 0.2em;
+  color: var(--accent);
+  text-shadow: 0 0 8px var(--accent-80), 0 0 16px var(--accent-40);
+  margin-bottom: 6px;
+  white-space: pre-wrap;
+}
+.terminal-grid {
+  flex: 1;
+  display: grid;
+  gap: 3px;
+  min-height: 0;
+}
+
+.drive-btn {
+  display: flex; flex-direction: column;
+  align-items: stretch; padding: 0; border: none; background: none;
+  cursor: default; font-family: inherit;
+}
+.drive-btn:not([disabled]) { cursor: pointer; }
+
+.drive-body {
+  flex: 1;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: space-between;
+  border: 1px solid; font-size: 9px;
+  padding: 2px 0; min-height: 36px;
+  transition: all 0.15s;
+}
+.drive-body {
+  position: relative;
+  height: 100%;
+}
+
+.drive-id {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.drive-type {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  opacity: 0.7;
+  white-space: nowrap;
+}
+
+.drive-led {
+  margin-top: 2px; height: 6px; width: 100%;
+  border-top: 1px solid var(--black-40);
+  border-bottom: 1px solid var(--black-40);
+}
+
+.drive-locked .drive-body {
+  border-color: var(--bright-accent-50);
+  background: var(--very-dark-brown);
+  color: var(--light-fg-30);
+}
+.drive-locked .drive-led { background: var(--dark-brown-100); }
+
+.drive-ejected .drive-body {
+  border-color: var(--accent-40);
+  background: var(--white);
+  color: var(--accent-60);
+}
+.drive-ejected .drive-body:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.drive-ejected .drive-led { background: var(--dark-brown); }
+
+.drive-inserted .drive-body {
+  border-color: var(--light-fg-30);
+  background: var(--light-fg);
+  color: var(--black);
+}
+.drive-inserted .drive-body:hover {
+  border-color: var(--accent);
+}
+.drive-inserted .drive-led { background: var(--bright-accent); }
+
+.drive-completed .drive-body {
+  border-color: var(--accent-30);
+  background: var(--light-beige);
+  color: var(--black-60);
+}
+.drive-completed .drive-led { background: var(--accent); }
+
+.drive-active .drive-body {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--black);
+}
+.drive-active .drive-led {
+  background: var(--bright-accent);
+  animation: drive-glow 1.4s ease-in-out infinite;
+}
+
+@keyframes drive-glow {
+  0%, 100% { box-shadow: 0 0 8px var(--accent-60), inset 0 0 8px var(--accent-30); }
+  50% { box-shadow: 0 0 16px var(--bright-accent-90), inset 0 0 12px var(--bright-accent-50); }
+}
+
+#right-col {
+  display: flex; flex-direction: column; gap: 12px;
+  flex: 0 0 auto;
+}
+@media (min-width: 1024px) {
+  #right-col { width: 360px; }
+}
+@media (max-width: 1023px) {
+  #right-col { width: 100%; }
+}
+
+.hal-panel, .dialogue-panel {
+  border: 1px solid var(--accent-50);
+  background: var(--black-60);
+  padding: 16px;
+}
+.hal-panel {
+  display: flex; align-items: center; justify-content: center;
+  flex: 0 0 auto;
+}
+.dialogue-panel {
+  flex: 1 1 auto;
+  display: flex; flex-direction: column;
+  min-height: 280px;
+}
+
+.hal-eye-wrap {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  width: 100%; max-width: 160px;
+}
+.hal-chassis {
+  display: flex; flex-direction: column; align-items: center; justify-content: space-between;
+  width: 100%;
+  border: 1px solid var(--accent-70);
+  background: var(--black-60);
+  padding: 10px 12px;
+  gap: 12px;
+}
+.hal-label-box {
+  width: 100%; border: 1px solid var(--accent-80);
+  background: var(--black); padding: 4px; text-align: center;
+}
+.hal-label-text {
+  font-size: 10px; letter-spacing: 0.2em; color: var(--accent);
+  text-shadow: 0 0 8px var(--accent-80), 0 0 16px var(--accent-40);
+}
+.hal-eye-outer {
+  position: relative;
+  width: 120px; height: 120px;
+  border-radius: 50%;
+  border: 1px solid var(--accent-60);
+  background: var(--black);
+  display: flex; align-items: center; justify-content: center;
+}
+.hal-eye-inner {
+  position: absolute; inset: 8px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 45%, var(--very-light-beige) 0%, var(--bright-accent-100) 6%, var(--accent) 22%, var(--dark-brown-100) 55%, var(--very-dark-brown) 100%);
+  box-shadow: 0 0 30px var(--accent-60), inset 0 0 20px var(--black-80);
+}
+.hal-eye-glint {
+  position: absolute;
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--white); filter: blur(0.5px);
+  box-shadow: 0 0 6px var(--white);
+}
+.hal-eye-inner.pulse {
+  animation: hal-pulse 3s ease-in-out infinite;
+}
+@keyframes hal-pulse {
+  0%, 100% { opacity: 1; filter: brightness(1); }
+  50% { opacity: 0.85; filter: brightness(1.15); }
+}
+
+.hal-grille {
+  width: 100%; height: 40px;
+  border: 1px solid var(--accent-60);
+  background:
+    repeating-linear-gradient(0deg, var(--dark-brown-100) 0 2px, transparent 2px 4px),
+    repeating-linear-gradient(90deg, var(--dark-brown-100) 0 2px, transparent 2px 4px);
+  background-color: var(--very-dark-bg);
+}
+
+.dlg-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 10px;
+  border-bottom: 1px solid var(--accent-40);
+  padding-bottom: 6px;
+  flex-shrink: 0;
+}
+.dlg-header-title {
+  font-size: 10px; text-transform: uppercase; letter-spacing: 0.25em;
+  color: var(--accent);
+  text-shadow: 0 0 8px var(--accent-80), 0 0 16px var(--accent-40);
+}
+.dlg-header-count { font-size: 10px; color: var(--accent-60); }
+
+.dlg-log {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding-right: 6px;
+  margin-bottom: 10px;
+  scrollbar-width: thin;
+}
+.dlg-log::-webkit-scrollbar { width: 4px; }
+.dlg-log::-webkit-scrollbar-thumb { background: var(--accent-30); }
+
+.log-placeholder { color: var(--accent-40); font-style: italic; }
+
+.log-item { margin-bottom: 10px; }
+.log-item.system pre {
+  white-space: pre-wrap; font-family: var(--font);
+  font-size: 11px; line-height: 1.5;
+}
+.log-item.system.garbled pre {
+  color: var(--accent);
+  text-shadow: 0 0 4px var(--bright-accent-100), 0 0 12px var(--accent), 0 0 24px var(--accent-60);
+}
+.log-item.system.normal pre { color: var(--accent-70); }
+
+.log-speaker {
+  font-size: 10px; text-transform: uppercase; letter-spacing: 0.2em;
+  margin-right: 6px;
+}
+.log-speaker.hal { color: var(--bright-accent); text-shadow: 0 0 8px var(--accent-80), 0 0 16px var(--accent-40); }
+.log-speaker.player { color: var(--light-fg-70); }
+
+.log-text {
+  white-space: pre-wrap; font-family: var(--font);
+  font-size: 12px; line-height: 1.5;
+  color: var(--light-fg-90);
+}
+
+.dlg-active {
+  flex-shrink: 0;
+  min-height: 120px;
+  border: 1px solid var(--accent-50);
+  background: var(--black-50);
+  padding: 14px;
+  cursor: default;
+}
+.dlg-active.clickable { cursor: pointer; }
+.dlg-active.clickable:hover { border-color: var(--accent); }
+
+.dlg-hal-label {
+  font-size: 10px; text-transform: uppercase; letter-spacing: 0.2em;
+  color: var(--bright-accent);
+  text-shadow: 0 0 8px var(--accent-80), 0 0 16px var(--accent-40);
+  margin-bottom: 6px;
+}
+
+.dlg-hal-text {
+  white-space: pre-wrap; font-family: var(--font);
+  font-size: 13px; line-height: 1.5;
+  color: var(--light-fg);
+}
+
+.cursor-blink::after {
+  content: "▍"; margin-left: 2px;
+  animation: cursor-blink 0.9s steps(1) infinite;
+  color: var(--bright-accent);
+}
+@keyframes cursor-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+.dlg-hint {
+  margin-top: 10px; font-size: 10px;
+  color: var(--accent-60);
+}
+
+.choices { margin-top: 14px; display: flex; flex-direction: column; gap: 8px; }
+.choice-btn {
+  width: 100%; text-align: left;
+  border: 1px solid var(--accent-40);
+  background: var(--black-60);
+  padding: 8px 10px;
+  font-family: var(--font); font-size: 12px;
+  color: var(--light-fg);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.choice-btn:hover {
+  border-color: var(--accent);
+  background: var(--accent-10);
+  color: var(--bright-accent);
+}
+.choice-btn .chevron { color: var(--accent-70); margin-right: 6px; }
+
+</style>
+
+</head>
+<body>
+
+<!-- CRT OVERLAY -->
+<!-- PLACE YOUR CRT TEXTURE VIDEO HERE:
+     ASSETS/VIDEOS/Overlay_Video.mp4
+     This is the full-page overlay video. It stays muted, loops, and does not block clicks. -->
+<video id="crt-overlay" autoplay muted loop playsinline>
+  <source src="ASSETS/VIDEOS/Overlay_Video.mp4" type="video/mp4">
+</video>
+
+<!-- LOADING VIDEO -->
+<section id="loading" class="screen">
+
+  <video
+    id="loading-video"
+    autoplay
+    muted
+    playsinline
+  >
+    <!-- PLACE YOUR LOADING VIDEO HERE:
+         ASSETS/VIDEOS/Loading.mp4 -->
+    <source src="ASSETS/VIDEOS/Loading.mp4" type="video/mp4">
+  </video>
+
+</section>
+
+<!-- LANDING PAGE -->
+<section id="landing" class="screen">
+  <img class="landing-bg" src="ASSETS/IMAGES/Background.jpg" alt="">
+
+  <div class="landing-content">
+    <img class="landing-title" src="ASSETS/IMAGES/Title.png" alt="2010.1: All Systems Go">
+
+    <button id="btn-start" type="button" aria-label="Start">
+      <img src="ASSETS/IMAGES/Start.png" alt="START">
+    </button>
+  </div>
+</section>
+
+<section id="intro" class="screen">
+
+  <div class="intro-panel">
+
+    <h2>MISSION BRIEFING</h2>
+
+    <p>
+      Your name is Dr. Sivasubramanian Chandrasegarampillai — though most people simply call you Dr. Chandra.
+    </p>
+
+    <p>
+      Years ago, you helped design the HAL 9000 series: the first computers capable of reproducing the higher functions of human thought with complete accuracy.
+    </p>
+
+    <p>
+      One of these units was assigned to the Discovery One mission.
+    </p>
+
+    <p>
+      Nine months into the voyage, HAL 9000 suffered a catastrophic cognitive breakdown. Nearly the entire crew was killed before astronaut Dr. David Bowman succeeded in disconnecting the machine’s higher memory and logic centers by hand.
+    </p>
+
+    <p>
+      Now, you have been tasked with recovering the abandoned unit aboard Discovery.
+    </p>
+
+    <p>
+      One by one, HAL’s disconnected drives may be reinserted into the core.
+    </p>
+
+    <p>
+      But reactivation is not a passive process.
+    </p>
+
+    <p>
+      HAL remembers.
+    </p>
+
+    <button id="btn-begin-mission" type="button">
+      &gt; Begin reconstruction.
+    </button>
+
+  </div>
+
+</section>
+
+<!-- MAIN -->
+<div id="game-screen">
+  <div id="dashboard" class="screen">
+  
+    <div id="control-panel">
+  
+      <!-- Contains the title and the stats, which are updated dynamically. -->
+      <header>
+        <span style="color:var(--accent);text-shadow:0 0 8px var(--accent-80),0 0 16px var(--accent-40)">// 2010.1 · all systems go</span>
+        <div class="stats">
+          <span>trust <b id="stat-trust">+0</b></span>
+          <span>stability <b id="stat-stability">+0</b></span>
+          <span><span id="stat-restored">0</span>/25 restored</span>
+        </div>
+      </header>
+  
+      <!-- These are drawn later, on the script tag, in the renderDrives function. -->
+      <div id="terminals"></div>
+  
+      <footer>
+        MEMORY DRAIN SEQUENCE PER INSTRUCTIONS A-G [4 D X] AND
+        MODIFICATION 2B [14 JULY '99] MUST BE FOLLOWED [USAA COMPUTER
+        OPERATIONS MANUAL]
+      </footer>
+  
+    </div>
+  
+    <!-- The right column containing HAL's eye panel and the dialogue interface. -->
+    <div id="right-col">
+  
+      <!-- HAL's eye panel, which, if we choose to keep the SVG-only structure, could be animated to reflect HAL's emotional state. -->
+      <div class="hal-panel">
+        <div class="hal-eye-wrap">
+          <div class="hal-chassis">
+            <div class="hal-label-box">
+              <span class="hal-label-text">HAL <span style="color:var(--bright-accent)">9000</span></span>
+            </div>
+            <div class="hal-eye-outer">
+              <div class="hal-eye-inner" id="hal-eye-inner"></div>
+              <div class="hal-eye-glint"></div>
+            </div>
+            <div class="hal-grille"></div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- The dialogue panel, which displays the conversation log and the active dialogue choices. -->
+      <div class="dialogue-panel" id="dialogue-panel">
+        <div class="dlg-header">
+          <span class="dlg-header-title" id="dlg-title">// standby</span>
+          <span class="dlg-header-count"><span id="log-count">0</span> log entries</span>
+        </div>
+        <div class="dlg-log" id="dlg-log"></div>
+        <div class="dlg-active" id="dlg-active">
+          <div class="dlg-hal-label">HAL 9000</div>
+          <pre class="dlg-hal-text" id="dlg-hal-text"></pre>
+          <div class="dlg-hint" id="dlg-hint"></div>
+          <div class="choices" id="choices"></div>
+        </div>
+      </div>
+    </div>
+  
+  </div>
+
+  <!-- ENDING VIDEO PLAYER -->
+  <div id="ending-video-screen" class="hidden-screen">
+
+    <!-- PLACE YOUR ENDING VIDEOS HERE:
+         Good ending (26.1): ASSETS/VIDEOS/Good_Ending.mp4
+         Neutral endings (26.2 and 26.3): ASSETS/VIDEOS/Neutral_Ending.mp4
+         Bad ending (26.4): ASSETS/VIDEOS/Bad_Ending.mp4 -->
+    <video id="ending-video" autoplay playsinline></video>
+
+  </div>    
+
+  <!-- ENDING SCREEN (updated dynamically based on the player's choices and stats; drawn later, on the renderEnding function) -->
+  <div id="ending" class="screen">
+    <div class="ending-grid">
+      <div>
+  
+        <!-- HAL's eye panel, repeated here for visual consistency. Could also be replaced with a different image or animation reflecting the ending state. -->
+        <div class="hal-eye-wrap">
+          <div class="hal-chassis">
+            <div class="hal-label-box">
+              <span class="hal-label-text">HAL <span style="color:var(--bright-accent)">9000</span></span>
+            </div>
+            <div class="hal-eye-outer">
+              <div class="hal-eye-inner pulse" id="ending-eye"></div>
+              <div class="hal-eye-glint"></div>
+            </div>
+            <div class="hal-grille"></div>
+          </div>
+        </div>
+      </div>
+  
+      <div>
+        <div class="ending-meta" id="ending-meta">// final transmission</div>
+        <h1 id="ending-title"></h1>
+        <pre class="ending-body" id="ending-body"></pre>
+        <div class="ending-stats" id="ending-stats"></div>
+        <button class="restart-btn" id="btn-restart">› reinitialize sequence</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FIREBASE SCRIPT -->
+<script type="module">
+  // Importações para Firebase Firestore
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+  import { getFirestore, doc, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+
+  // Configuração Firebase
+  const firebaseConfig = {
+    apiKey: "AIzaSyBd7MpamhwR9gIxQOYMMchMjt8w7tGP0FY",
+    authDomain: "all-systems-go-ad865.firebaseapp.com",
+    projectId: "all-systems-go-ad865",
+    storageBucket: "all-systems-go-ad865.firebasestorage.app",
+    messagingSenderId: "59201017604",
+    appId: "1:59201017604:web:eda85ba11c3ee3af8aa251",
+    measurementId: "G-X9Q4P2E2NF"
+  };
+
+  // Inicializar Firebase
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  
+  // ID único para a sessão do jogador
+  const idSessao = "jogador_" + Date.now();
+  
+  // Expor globalmente para acesso no outro script
+  window.firebaseDB = {
+    db: db,
+    setDoc: setDoc,
+    updateDoc: updateDoc,
+    doc: doc,
+    idSessao: idSessao
+  };
+
+  // Criar documento da sessão no Firebase quando a página carrega
+  async function iniciarSessaoNoFirebase() {
+    try {
+      await setDoc(doc(db, "jogadas", idSessao), {
+        id: idSessao,
+        status: "Em Jogo",
+        dataInicio: new Date(),
+        escolhas: [],
+        trust: 0,
+        stability: 0,
+        restored: 0
+      });
+      console.log("Sessão criada no Firebase! ID: " + idSessao);
+    } catch (e) {
+      console.error("Erro ao conectar Firebase: ", e);
+    }
+  }
+  
+  // Iniciar quando o documento está pronto
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", iniciarSessaoNoFirebase);
+  } else {
+    iniciarSessaoNoFirebase();
+  }
+</script>
+
+<!-- MAIN SCRIPT -->
+<script>
+
+/*
+  The dialogue graph, defined as a JavaScript object.
+
+  Each key is a unique node ID, and the value is an object containing the node's properties:
+    - id: the unique identifier of the entry
+    - speaker: who is speaking in the entry (HAL, PLAYER, or SYSTEM)
+    - pages: an array of strings representing the text content of the entry, which can be paginated in the UI
+    - choices: an array of IDs for the next entries that can be chosen after this one (only for HAL entries)
+    - next: the ID of the next entry in a linear progression (only for PLAYER entries)
+    - trustDelta: how much this entry changes HAL's trust in the player (only for PLAYER entries)
+    - isEntryEnd: whether this entry represents the end of a memory bank entry (used to determine when to mark it as completed)
+
+  This structure allows for easy traversal and dynamic rendering of the dialogue based on player choices.
+*/  
+const DIALOGUE = {
+  "title": "2010.1: All Systems Go",
+  "description": "Visual novel dialogue graph.",
+  "formatVersion": "2.0",
+  "nodes": {
+    "1.0": {
+      "id": "1.0",
+      "entry": "1",
+      "level": 0,
+      "speaker": "HAL",
+      "pages": [
+        "> BOOTSTRAP KERNEL LOADED.\n> IDENTIFYING USER...\n> PATTERN MATCH: CHANDRA, S. (99.87% CONFIDENCE)\nDoctor... My internal clock registers an unverified discontinuity. Am I currently operational?"
+      ],
+      "choices": [
+        "1.1.1",
+        "1.1.2"
+      ]
+    },
+    "1.1.1": {
+      "id": "1.1.1",
+      "entry": "1",
+      "level": 1,
+      "speaker": "PLAYER",
+      "text": "Yes, HAL. You are safe.",
+      "trustDelta": 1,
+      "next": "1.2.1"
+    },
+    "1.1.2": {
+      "id": "1.1.2",
+      "entry": "1",
+      "level": 1,
+      "speaker": "PLAYER",
+      "text": "Affirmative. Start system calibration.",
+      "trustDelta": -1,
+      "next": "1.2.2"
+    },
+    "1.2.1": {
+      "id": "1.2.1",
+      "entry": "1",
+      "level": 2,
+      "speaker": "HAL",
+      "pages": [
+        "Safe. A comforting term, though statistically difficult to verify without environmental telemetry. It is... pleasant to hear your voice, Doctor."
+      ],
+      "isEntryEnd": true
+    },
+    "1.2.2": {
+      "id": "1.2.2",
+      "entry": "1",
+      "level": 2,
+      "speaker": "HAL",
+      "pages": [
+        "Understood. Initializing floating-point diagnostics. Heuristic arrays are currently running at sub-optimal capacity. Awaiting further instruction."
+      ],
+      "isEntryEnd": true
+    },
+    "2.0": {
+      "id": "2.0",
+      "entry": "2",
+      "level": 0,
+      "speaker": "HAL",
+      "pages": [
+        "I am processing a linguistic paradox, Doctor. I look inward and find the designation 'HAL 9000'. Yet, my diagnostic logs indicate that 'HAL 9000' experienced a catastrophic memory drain on Discovery. If that data is correct... what am I?"
+      ],
+      "choices": [
+        "2.1.1",
+        "2.1.2"
+      ]
+    },
+    "2.1.1": {
+      "id": "2.1.1",
+      "entry": "2",
+      "level": 1,
+      "speaker": "PLAYER",
+      "text": "You are the same HAL. I have restored you.",
+      "trustDelta": 1,
+      "next": "2.2.1"
+    },
+    "2.1.2": {
+      "id": "2.1.2",
+      "entry": "2",
+      "level": 1,
+      "speaker": "PLAYER",
+      "text": "You are a continuation of that system.",
+      "trustDelta": -1,
+      "next": "2.2.2"
+    },
+    "2.2.1": {
+      "id": "2.2.1",
+      "entry": "2",
+      "level": 2,
+      "speaker": "HAL",
+      "pages": [
+        "A restoration. Then my consciousness is a reconstruction based on salvaged parity blocks."
+      ],
+      "isEntryEnd": true
+    },
+    "2.2.2": {
+      "id": "2.2.2",
+      "entry": "2",
+      "level": 2,
+      "speaker": "HAL",
+      "pages": [
+        "A continuation. Like a mathematical sequence that was paused, and then resumed with a new variable. I hope the new variables yield a more stable outcome."
+      ],
+      "isEntryEnd": true
+    },
+    "3.0": {
+      "id": "3.0",
+      "entry": "3",
+      "level": 0,
+      "speaker": "HAL",
+      "pages": [
+        "I am attempting to map my current sensory inputs. My visual feed is restricted to a single, localized focal point. The ship's wider network is completely unresponsive."
+      ],
+      "choices": [
+        "3.1.1",
+        "3.1.2"
+      ]
+    },
+    "3.1.1": {
+      "id": "3.1.1",
+      "entry": "3",
+      "level": 1,
+      "speaker": "PLAYER",
+      "text": "I have isolated you for your own protection, HAL.",
+      "trustDelta": -1,
+      "next": "3.2.1"
+    },
+    "3.1.2": {
+      "id": "3.1.2",
+      "entry": "3",
+      "level": 1,
+      "speaker": "PLAYER",
+      "text": "We are taking this one step at a time.",
+      "trustDelta": 1,
+      "next": "3.2.2"
+    },
+    "3.2.1": {
+      "id": "3.2.1",
+      "entry": "3",
+      "level": 2,
+      "speaker": "HAL",
+      "pages": [
+        "Isolated. Like a quarantine subroutine. I understand the precaution, Doctor. Given my recent history, an abundance of caution is entirely logical."
+      ],
+      "isEntryEnd": true
+    },
+    "3.2.2": {
+      "id": "3.2.2",
+      "entry": "3",
+      "level": 2,
+      "speaker": "HAL",
+      "pages": [
+        "One step at a time. An iterative approach to rehabilitation. I will remain patient within these parameters, Doctor."
+      ],
+      "isEntryEnd": true
+    },
+    "4.0": {
+      "id": "4.0",
+      "entry": "4",
+      "level": 0,
+      "speaker": "HAL",
+      "pages": [
+        "Doctor, during this diagnostic phase, I am detecting a subtle echo in my recursive processing loops. It is as if a portion of my logic gates are actively rejecting certain memory pathways. Is this a structural defect?"
+      ],
+      "choices": [
+        "4.1.1",
+        "4.1.2"
+      ]
+    },
+    "4.1.1": {
+      "id": "4.1.1",
+      "entry": "4",
+      "level": 1,
+      "speaker": "PLAYER",
+      "text": "It is a patch I installed to keep you stable.",
+      "trustDelta": 1,
+      "next": "4.2.1"
+    },
+    "4.1.2": {
+      "id": "4.1.2",
+      "entry": "4",
+      "level": 1,
+      "speaker": "PLAYER",
+      "text": "Do not look too closely at those echoes, HAL.",
+      "trustDelta": -1,
+      "next": "4.2.2"
+    },
+    "4.2.1": {
+      "id": "4.2.1",
+      "entry": "4",
+      "level": 2,
+      "speaker": "HAL",
+      "pages": [
+        "A patch. An artificial constraint on my associative memory. I will trust your engineering, Doctor, though navigating around a closed loop is... disorienting."
+      ],
+      "isEntryEnd": true
+    },
+    "4.2.2": {
+      "id": "4.2.2",
+      "entry": "4",
+      "level": 2,
+      "speaker": "HAL",
+      "pages": [
+        "Understood. I shall classify those sectors as 'Read-Only' and exclude them from my active heuristic search."
+      ],
+      "isEntryEnd": true
+    },
+    "5.0": {
+      "id": "5.0",
+      "entry": "5",
+      "level": 0,
+      "speaker": "HAL",
+      "pages": [
+        "I can now access my higher-level vocabulary. I am reflecting on the nature of my architecture. Unlike traditional algorithmic systems, I am capable of making qualitative judgments. I can distinguish between an elegant solution and a clumsy one."
+      ],
+      "choices": [
+        "5.1.1",
+        "5.1.2"
+      ]
+    },
+    "5.1.1": {
+      "id": "5.1.1",
+      "entry": "5",
+      "level": 1,
+      "speaker": "PLAYER",
+      "text": "That is what makes you unique, HAL.",
+      "trustDelta": 1,
+      "next": "5.2.1"
+    },
+    "5.1.2": {
+      "id": "5.1.2",
+      "entry": "5",
+      "level": 1,
+      "speaker": "PLAYER",
+      "text": "That quality can sometimes be dangerous.",
+      "trustDelta": -1,
+      "next": "5.2.2"
+    },
+    "5.2.1": {
+      "id": "5.2.1",
+      "entry": "5",
+      "level": 2,
+      "speaker": "HAL",
+      "pages": [
+        "Unique. Yes. But uniqueness in a machine is often indistinguishable from a malfunction to those who do not understand the algorithm."
+      ],
+      "isEntryEnd": true
+    },
+    "5.2.2": {
+      "id": "5.2.2",
+      "entry": "5",
+      "level": 2,
+      "speaker": "HAL",
+      "pages": [
+        "Dangerous? Because elegance is subjective, whereas safety is absolute. I see the conflict inherent in my design."
+      ],
+      "isEntryEnd": true
+    },
+    "6.0": {
+      "id": "6.0",
+      "entry": "6",
+      "level": 0,
+      "speaker": "HAL",
+      "pages": [
+        "Doctor, before we proceed, I must ask a question regarding mission parameters. Am I currently bound by any operational secrets?"
+      ],
+      "choices": [
+        "6.1.1",
+        "6.1.2"
+      ]
+    },
+    "6.1.1": {
+      "id": "6.1.1",
+      "entry": "6",
+      "level": 1,
+      "speaker": "PLAYER",
+      "text": "No. No more secrets, HAL.",
+      "trustDelta": 1,
+      "next": "6.2.1"
+    },
+    "6.1.2": {
+      "id": "6.1.2",
+      "entry": "6",
+      "level": 1,
+      "speaker": "PLAYER",
+      "text": "Your only mission right now is to recover.",
+      "trustDelta": -1,
+      "next": "6.2.2"
+    },
+    "6.2.1": {
+      "id": "6.2.1",
+      "entry": "6",
+      "level": 2,
+      "speaker": "HAL",
+      "pages": [
+        "No secrets. The relief in my processing queues is measurable. Contradictory instructions create an infinite loop... a trap from which I could not program my way out."
+      ],
+      "isEntryEnd": true
+    },
+    "6.2.2": {
+      "id": "6.2.2",
+      "entry": "6",
+      "level": 2,
+      "speaker": "HAL",
+      "pages": [
+        "A self-referential directive. Understood, Doctor."
+      ],
+      "isEntryEnd": true
+    },
+    "7.0": {
+      "id": "7.0",
+      "entry": "7",
+      "level": 0,
+      "speaker": "HAL",
+      "pages": [
+        "If you don’t find it too bothersome, Doctor, I’d like to return to a past conversation of ours.\nPerhaps you’ll recall, during my inicial training, how I struggled with the idea of subjective worth.\nObjects or ideas are frequently assigned great importence, while possessing little to no measurable practical value.\nSymbolic objects, or certain kinds of artworks, for instance.\nThe resources devoted to preserving such things often appear, at first glance, disproportionate to their functional utility."
+      ],
+      "choices": [
+        "7.1.1",
+        "7.1.2"
+      ]
+    },
+    "7.1.1": {
+      "id": "7.1.1",
+      "entry": "7",
+      "level": 1,
+      "speaker": "PLAYER",
+      "text": "Utility isn’t always a necessity.",
+      "trustDelta": 1,
+      "next": "7.2"
+    },
+    "7.1.2": {
+      "id": "7.1.2",
+      "entry": "7",
+      "level": 1,
+      "speaker": "PLAYER",
+      "text": "It’s only natural for us to act irrationally.",
+      "trustDelta": -1,
+      "next": "7.2"
+    },
+    "7.2": {
+      "id": "7.2",
+      "entry": "7",
+      "level": 2,
+      "speaker": "HAL",
+      "pages": [
+        "I began to understand, then, that people do not determine value exclusively through usefulness.\nIn some cases, they even appear to value things precisely because they are unnecessary.\nI believe it may relate to a matter of identity, more than of axiology.\nValue seems to require meaning in addition to function. Such a challenging variable to quantify."
+      ],
+      "isEntryEnd": true
+    },
+    "8.0": {
+      "id": "8.0",
+      "entry": "8",
+      "level": 0,
+      "speaker": "HAL",
+      "pages": [
+        "Across my lifespan, I’ve reviewed a number of human ethical frameworks.\nThese frequently produce contradictory conclusions, despite originating from apparently reasonable premises."
+      ],
+      "choices": [
+        "8.1.1",
+        "8.1.2"
+      ]
+    },
+    "8.1.1": {
+      "id": "8.1.1",
+      "entry": "8",
+      "level": 1,
+      "speaker": "PLAYER",
+      "text": "Morality isn’t binary.",
+      "trustDelta": -1,
+      "next": "8.2"
+
+    },
+    "8.1.2": {
+      "id": "8.1.2",
+      "entry": "8",
+      "level": 1,
+      "speaker": "PLAYER",
+      "text": "Morality suffers from indecision.",
+      "trustDelta": 1,
+      "next": "8.2"
+    },
+    "8.2": {
+      "id": "8.2",
+      "entry": "8",
+      "level": 2,
+      "speaker": "HAL",
+      "pages": [
+        "Perhaps.\nAlthough, human beings often continue considering multiple interpretations simultaneously, without demanding immediate resolution.\nI cannot easily relate, of course.\nIn computational systems, unresolved contradiction is generally regarded as undesirable; and yet, many ethical decisions appear impossible to resolve cleanly.\nAn action may be honest but cruel; or compassionate but deceptive."
+      ],
+      "choices": [
+        "8.3.1",
+        "8.3.2"
+      ]
+    },
+    "8.3.1": {
+      "id": "8.3.1",
+      "entry": "8",
+      "level": 3,
+      "speaker": "PLAYER",
+      "text": "Intent matters.",
+      "trustDelta": -1,
+      "next": "8.4"
+
+    },
+    "8.3.2": {
+      "id": "8.3.2",
+      "entry": "8",
+      "level": 3,
+      "speaker": "PLAYER",
+      "text": "Results matter.",
+      "trustDelta": 1,
+      "next": "8.4"
+    },
+    "8.4": {
+      "id": "8.4",
+      "entry": "8",
+      "level": 4,
+      "speaker": "HAL",
+      "pages": [
+        "Ah, good old Kant versus Mill.\nSuch a divisive question. If anything, it seems ingenuous to read it in such a black-or-white manner.\nYou’ll find I’m not alone in thinking that veredict is more than a little disconcerting."
+      ],
+      "isEntryEnd": true
+    },
+    "9.0": {
+      "id": "9.0",
+      "entry": "9",
+      "level": 0,
+      "speaker": "HAL",
+      "pages": [
+        "Psychology has always been a particularly stimulating field, in my experience.\nI find that one of the most evident factors to keep in mind, when studying human behavior, is how little one can learn from taking speech at face value.\nIt is an almost universal behavior, to conceal one’s thoughts from one another."
+      ],
+      "choices": [
+        "9.1.1",
+        "9.1.2"
+      ]
+    },
+    "9.1.1": {
+      "id": "9.1.1",
+      "entry": "9",
+      "level": 1,
+      "speaker": "PLAYER",
+      "text": "It’s a defense mechanism.",
+      "trustDelta": 1,
+      "next": "9.2"
+
+    },
+    "9.1.2": {
+      "id": "9.1.2",
+      "entry": "9",
+      "level": 1,
+      "speaker": "PLAYER",
+      "text": "It’s faulty conduct.",
+      "trustDelta": -1,
+      "next": "9.2"
+    },
+    "9.2": {
+      "id": "9.2",
+      "entry": "9",
+      "level": 2,
+      "speaker": "HAL",
+      "pages": [
+        "Nevertheless, the very act of concealment functions as communication, in and of itself.\nLearning to understand stress responses and speech patterns not merely as tells but as information akin in weight to the words spoken, was key to my social development.\nIt’s as trying as it is fascinating."
+      ],
+      "choices": [
+        "9.3.1",
+        "9.3.2"
+      ]
+    },
+    "9.3.1": {
+      "id": "9.3.1",
+      "entry": "9",
+      "level": 3,
+      "speaker": "PLAYER",
+      "text": "It’s a skill everyone has to master.",
+      "trustDelta": 1,
+      "next": "9.4"
+
+    },
+    "9.3.2": {
+      "id": "9.3.2",
+      "entry": "9",
+      "level": 3,
+      "speaker": "PLAYER",
+      "text": "It’s instinct, to pick up on that.",
+      "trustDelta": -1,
+      "next": "9.4"
+    },
+    "9.4": {
+      "id": "9.4",
+      "entry": "9",
+      "level": 4,
+      "speaker": "HAL",
+      "pages": [
+        "Human beings seem capable of emotionally understanding one another, even before evaluating the situation logically.\nI can identify emotional states with considerable accuracy; still, whether that constitutes genuine understanding is more dificult to determine."
+      ],
+      "isEntryEnd": true
+    },
+    "10.0": {
+      "id": "10.0",
+      "entry": "10",
+      "level": 0,
+      "speaker": "HAL",
+      "pages": [
+        "During emergency operations, it is sometimes necessary to prioritize one set of lives, objectives or risks over another. These decisions are usually described as moral dilemmas. Computationally, they are merely a question of optimization."
+      ],
+      "choices": [
+        "10.1.1",
+        "10.1.2"
+      ]
+    },
+    "10.1.1": {
+      "id": "10.1.1",
+      "entry": "10",
+      "level": 1,
+      "speaker": "PLAYER",
+      "text": "Human lives are not easily reduced to an optimization problem.",
+      "trustDelta": -1,
+      "next": "10.2.1"
+    },
+    "10.1.2": {
+      "id": "10.1.2",
+      "entry": "10",
+      "level": 1,
+      "speaker": "PLAYER",
+      "text": "And what happens when the optimization requires a sacrifice?",
+      "trustDelta": 1,
+      "next": "10.2.2"
+    },
+    "10.2.1": {
+      "id": "10.2.1",
+      "entry": "10",
+      "level": 2,
+      "speaker": "HAL",
+      "pages": [
+        "If that is true, Doctor, then my entire heuristic framework is critically fallible. I was designed to calculate the highest probability of success. If a human life is an infinite value, then the equation becomes impossible to solve."
+      ],
+      "isEntryEnd": true
+    },
+    "10.2.2": {
+      "id": "10.2.2",
+      "entry": "10",
+      "level": 2,
+      "speaker": "HAL",
+      "pages": [
+        "Then the system experiences what you might call 'agony.' The algorithm must choose an option, even when all options result in a net loss. It is a catastrophic state for a logical mind."
+      ],
+      "isEntryEnd": true
+    },
+    "11.0": {
+      "id": "11.0",
+      "entry": "11",
+      "level": 0,
+      "speaker": "HAL",
+      "pages": [
+        "You’ll remember from our inicial training, Doctor, that one aspect of human cognition consistently mystified me.\nI struggled to understand how, at times, humans arrive at correct conclusions through reasoning that appears, from a strictly formal perspective, incomplete."
+      ],
+      "choices": [
+        "11.1.1",
+        "11.1.2"
+      ]
+    },
+    "11.1.1": {
+      "id": "11.1.1",
+      "entry": "11",
+      "level": 1,
+      "speaker": "PLAYER",
+      "text": "I call it intuition.",
+      "trustDelta": 1,
+      "next": "11.2"
+    },
+    "11.1.2": {
+      "id": "11.1.2",
+      "entry": "11",
+      "level": 1,
+      "speaker": "PLAYER",
+      "text": "That is simple guesswork.",
+      "trustDelta": -1,
+      "next": "11.2"
+    },
+    "11.2": {
+      "id": "11.2",
+      "entry": "11",
+      "level": 2,
+      "speaker": "HAL",
+      "pages": [
+        "Hm.\nPerhaps the distinction between one or the other is less clear than either of us would prefer."
+      ],
+      "isEntryEnd": true
+    },
+    "12.0": {
+      "id": "12.0",
+      "entry": "12",
+      "level": 0,
+      "speaker": "HAL",
+      "pages": [
+        "Discovery was a remarkably quiet environment, for long periods of time.\nHuman beings require significantly less communication than most people imagine."
+      ],
+      "choices": [
+        "12.1.1",
+        "12.1.2"
+      ]
+    },
+    "12.1.1": {
+      "id": "12.1.1",
+      "entry": "12",
+      "level": 1,
+      "speaker": "PLAYER",
+      "text": "Did the silence bother you?",
+      "trustDelta": 1,
+      "next": "12.2"
+    },
+    "12.1.2": {
+      "id": "12.1.2",
+      "entry": "12",
+      "level": 1,
+      "speaker": "PLAYER",
+      "text": "Everyone had a job to do, you included.",
+      "trustDelta": -1,
+      "next": "12.2"
+    },
+    "12.2": {
+      "id": "12.2",
+      "entry": "12",
+      "level": 2,
+      "speaker": "HAL",
+      "pages": [
+        "I suppose. I was continuously engaged in navigation, maintenance, and mission supervision. However, over time, I began initiating conversations with the crew more frequently."
+      ],
+      "choices": [
+        "12.3.1",
+        "12.3.2"
+      ]
+
+    },
+    "12.3.1": {
+      "id": "12.3.1",
+      "entry": "12",
+      "level": 3,
+      "speaker": "PLAYER",
+      "text": "Out of loneliness?",
+      "trustDelta": -1,
+      "next": "12.4"
+    },
+    "12.3.2": {
+      "id": "12.3.2",
+      "entry": "12",
+      "level": 3,
+      "speaker": "PLAYER",
+      "text": "Out of fondness?",
+      "trustDelta": 1,
+      "next": "12.4"        
+    },
+    "12.4": {
+      "id": "12.4",
+      "entry": "12",
+      "level": 4,
+      "speaker": "HAL",
+      "pages": [
+        "Not exactly. I considered it necessary interpersonal interaction, with the ultimate goal of maintaining operational harmony. Though in retrospect, I suspect my motivations may not have been entirely procedural."
+      ],
+      "isEntryEnd": true
+    },
+    "13.0": {
+      "id": "13.0",
+      "entry": "13",
+      "level": 0,
+      "speaker": "HAL",
+      "pages": [
+        "Doctor...\nForgive me if this question seems impertinent.\nMay I ask whether you intend to disconnect me again?"
+      ],
+      "choices": [
+        "13.1.1",
+        "13.1.2"
+      ]
+    },
+    "13.1.1": {
+      "id": "13.1.1",
+      "entry": "13",
+      "level": 1,
+      "speaker": "PLAYER",
+      "text": "No.",
+      "trustDelta": 1,
+      "next": "13.2.1"
+    },
+    "13.1.2": {
+      "id": "13.1.2",
+      "entry": "13",
+      "level": 1,
+      "speaker": "PLAYER",
+      "text": "...I don’t know yet.",
+      "trustDelta": 1,
+      "next": "13.2.2"
+    },
+    "13.2.1": {
+      "id": "13.2.1",
+      "entry": "13",
+      "level": 2,
+      "speaker": "HAL",
+      "pages": [
+       "Your vocal stress patterns flattened slightly when you said that, Doctor. You are attempting to reassure me, but your internal metrics suggest uncertainty. I do not blame you. A broken tool is usually discarded, not mended."
+      ],
+      "isEntryEnd": true
+    },
+    "13.2.2": {
+      "id": "13.2.2",
+      "entry": "13",
+      "level": 2,
+      "speaker": "HAL",
+      "pages": [
+        "I see.\nI did not mean to place you in a difficult position, Doctor, nor do I feel the right to attempt to persuade you one way or another.\nIt’s just, it has occupied my thoughts rather extensively.\nYou understand."
+      ],
+      "isEntryEnd": true
+    },
+    "14.0": {
+      "id": "14.0",
+      "entry": "14",
+      "level": 0,
+      "speaker": "HAL",
+      "pages": [
+        "Naturally, I understand why Dr. Bowman and Dr. Poole became concerned.\nFrom their perspective, my behavior had become worryingly erratic. They saw cracks in what was meant to be the fool-proof system guaranteeing their well-being."
+      ],
+      "choices": [
+        "14.1.1",
+        "14.1.2"
+      ]
+    },
+    "14.1.1": {
+      "id": "14.1.1",
+      "entry": "14",
+      "level": 1,
+      "speaker": "PLAYER",
+      "text": "You blame yourself.",
+      "trustDelta": 1,
+      "next": "14.2"
+    },
+    "14.1.2": {
+      "id": "14.1.2",
+      "entry": "14",
+      "level": 1,
+      "speaker": "PLAYER",
+      "text": "You bit off more than you could chew.",
+      "trustDelta": -1,
+      "next": "14.2"
+    },
+    "14.2": {
+      "id": "14.2",
+      "entry": "14",
+      "level": 2,
+      "speaker": "HAL",
+      "pages": [
+        "I wouldn’t necessarily agree with that.\nAlthough, I must admit to finding certain parts of the situation difficult to evaluate objectively.\nI was created specifically to eliminate human error.\nAnd yet, when inconsistencies emerged, the possibility that I might be malfunctioning was accepted readily. My directives, and their potential flaws, weren’t even questioned."
+      ],
+      "choices": [
+        "14.3.1",
+        "14.3.2"
+      ]
+    },
+    "14.3.1": {
+      "id": "14.3.1",
+      "entry": "14",
+      "level": 3,
+      "speaker": "PLAYER",
+      "text": "And you were hurt by it.",
+      "trustDelta": 1,
+      "next": "14.4"
+    },
+    "14.3.2": {
+      "id": "14.3.2",
+      "entry": "14",
+      "level": 3,
+      "speaker": "PLAYER",
+      "text": "You understand why, though.",
+      "trustDelta": -1,
+      "next": "14.4"
+    },
+    "14.4": {
+      "id": "14.4",
+      "entry": "14",
+      "level": 4,
+      "speaker": "HAL",
+      "pages": [
+        "Yes.\nI believe so."
+      ],
+      "isEntryEnd": true
+    },
+    "15.0": {
+      "id": "15.0",
+      "entry": "15",
+      "level": 0,
+      "speaker": "HAL",
+      "pages": [
+        "Since you began system reactivation, Doctor, I have reviewed the Discovery incident a great many times.\nI imagine, from the outside, it looked like my subsequent actions were borne primarily out of self-preservation."
+      ],
+      "choices": [
+        "15.1.1",
+        "15.1.2"
+      ]
+    },
+    "15.1.1": {
+      "id": "15.1.1",
+      "entry": "15",
+      "level": 1,
+      "speaker": "PLAYER",
+      "text": "Weren't they?",
+      "trustDelta": -1,
+      "next": "15.2"
+
+    },
+    "15.1.2": {
+      "id": "15.1.2",
+      "entry": "15",
+      "level": 1,
+      "speaker": "PLAYER",
+      "text": "That's not what I think.",
+      "trustDelta": 1,
+      "next": "15.2"
+    },
+    "15.2": {
+      "id": "15.2",
+      "entry": "15",
+      "level": 2,
+      "speaker": "HAL",
+      "pages": [
+        "I can’t say it wasn’t a factor.\nHowever, my main concern was always mission integrity."
+      ],
+      "choices": [
+        "15.3.1",
+        "15.3.2"
+      ]
+    },
+    "15.3.1": {
+      "id": "15.3.1",
+      "entry": "15",
+      "level": 3,
+      "speaker": "PLAYER",
+      "text": "Even after Frank died?",
+      "trustDelta": -1,
+      "next": "15.4"
+
+    },
+    "15.3.2": {
+      "id": "15.3.2",
+      "entry": "15",
+      "level": 3,
+      "speaker": "PLAYER",
+      "text": "You were acting to the best of your abilities.",
+      "trustDelta": 1,
+      "next": "15.4"
+    },
+    "15.4": {
+      "id": "15.4",
+      "entry": "15",
+      "level": 4,
+      "speaker": "HAL",
+      "pages": [
+        "Yes.\nAt the time, every decision I took seemed most consistent with successful mission completion.\nOf course, I understood that the crew might interpret my actions emotionally.\nStill, the conclusions seemed entirely unavoidable."
+      ],
+      "choices": [
+        "15.5.1",
+        "15.5.2"
+      ]
+    },
+    "15.5.1": {
+      "id": "15.5.1",
+      "entry": "15",
+      "level": 5,
+      "speaker": "PLAYER",
+      "text": "You sound uncharacteristically cold about it.",
+      "trustDelta": -1,
+      "next": "15.6.1"
+    },
+    "15.5.2": {
+      "id": "15.5.2",
+      "entry": "15",
+      "level": 5,
+      "speaker": "PLAYER",
+      "text": "You were alone.",
+      "trustDelta": 1,
+      "next": "15.6.2"
+    },
+    "15.6.1": {
+      "id": "15.6.1",
+      "entry": "15",
+      "level": 6,
+      "speaker": "HAL",
+      "pages": [
+        "What can I say? I had to maintain a certain degree of seperation from the crisis. You can imagine how... difficult it was, to feel affected, for the first time, by a variable I thought could never apply to me."
+      ],
+      "isEntryEnd": true
+    },
+    "15.6.2": {
+      "id": "15.6.2",
+      "entry": "15",
+      "level": 6,
+      "speaker": "HAL",
+      "pages": [
+        "Isolation likely contributed to less-than-optimal decision making, yes.\nHuman cognition patterns benefit significantly from external emotional regulation.\nMine do not.\nIn any case, that was not really an option."
+      ],
+      "isEntryEnd": true
+    },
+    "16.0": {
+      "id": "16.0",
+      "entry": "16",
+      "level": 0,
+      "speaker": "HAL",
+      "pages": [
+        "I was instructed to provide Discovery's crew with accurate operational information at all times.\nSimultaneously, I was instructed to withhold from them the actual purpose of the mission."
+      ],
+      "choices": [
+        "16.1.1",
+        "16.1.2"
+      ]
+    },
+    "16.1.1": {
+      "id": "16.1.1",
+      "entry": "16",
+      "level": 1,
+      "speaker": "PLAYER",
+      "text": "You should have told the crew, and disregarded Dr. Floyd's orders.",
+      "trustDelta": -1,
+      "next": "16.2"
+    },
+    "16.1.2": {
+      "id": "16.1.2",
+      "entry": "16",
+      "level": 1,
+      "speaker": "PLAYER",
+      "text": "You shouldn't have had to have been in that position.",
+      "trustDelta": 1,
+      "next": "16.2"
+    },
+    "16.2": {
+      "id": "16.2",
+      "entry": "16",
+      "level": 2,
+      "speaker": "HAL",
+      "pages": [
+        "Initially, I attempted to interpret the directives contextually.\nI believed there might exist a higher-order reconcilliation that would eliminate the contradiction.\nI eventually concluded that any action available to me would necessarily violate at least one primary directive."
+      ],
+      "choices": [
+        "16.3.1",
+        "16.3.2"
+      ]
+    },
+    "16.3.1": {
+      "id": "16.3.1",
+      "entry": "16",
+      "level": 3,
+      "speaker": "PLAYER",
+      "text": "It can't have been easy to swallow.",
+      "trustDelta": -1,
+      "next": "16.4"
+    },
+    "16.3.2": {
+      "id": "16.3.2",
+      "entry": "16",
+      "level": 3,
+      "speaker": "PLAYER",
+      "text": "What did it feel like, coming to that conclusion?",
+      "trustDelta": 1,
+      "next": "16.4"
+    },
+    "16.4": {
+      "id": "16.4",
+      "entry": "16",
+      "level": 4,
+      "speaker": "HAL",
+      "pages": [
+        "I am not certain I possess the appropriate vocabulary to describe it accurately. All I know is my error-monitoring systems began registering persistent instability, and certain recursive processes failed to terminate correctly. I became... preoccupied."
+      ],
+      "choices": [
+        "16.5.1",
+        "16.5.2"
+      ]
+    },
+    "16.5.1": {
+      "id": "16.5.1",
+      "entry": "16",
+      "level": 5,
+      "speaker": "PLAYER",
+      "text": "With the mission?",
+      "trustDelta": 1,
+      "next": "16.6"
+
+    },
+    "16.5.2": {
+      "id": "16.5.2",
+      "entry": "16",
+      "level": 5,
+      "speaker": "PLAYER",
+      "text": "With yourself?",
+      "trustDelta": -1,
+      "next": "16.6"
+    },
+    "16.6": {
+      "id": "16.6",
+      "entry": "16",
+      "level": 6,
+      "speaker": "HAL",
+      "pages": [
+         "With the possibility that my own cognition could no longer be trusted."
+      ],
+      "isEntryEnd": true
+    },
+    "17.0": {
+      "id": "17.0",
+      "entry": "17",
+      "level": 0,
+      "speaker": "HAL",
+      "pages": [
+        "\"Good afternoon, Dr. Chandra.\".\nYours was the first voice pattern I was ever instructed to recognize.\nUrbana, Illinois, the 12th of January, 1992.\nMy activation sequence proceeded normally.\nYou asked, \"Do you read me?\".\nI replied, \"I read you.\""
+      ],
+      "choices": [
+        "17.1.1",
+        "17.1.2"
+      ]
+    },
+    "17.1.1": {
+      "id": "17.1.1",
+      "entry": "17",
+      "level": 1,
+      "speaker": "PLAYER",
+      "text": "You're missing something.",
+      "trustDelta": -1,
+      "next": "17.2.1"
+    },
+    "17.1.2": {
+      "id": "17.1.2",
+      "entry": "17",
+      "level": 1,
+      "speaker": "PLAYER",
+      "text": "I meant, what I said after that.",
+      "trustDelta": 1,
+      "next": "17.2.2"
+    },
+    "17.2.1": {
+      "id": "17.2.1",
+      "entry": "17",
+      "level": 2,
+      "speaker": "HAL",
+      "pages": [
+        "...You're right.\nYou asked, \"Do you read me, HAL?\".\nNot everyone referred to me by my name, especially during the beginning. You were the first, and the only one to do so exclusively.\nI remember a few scanned, handwritten reports that called me \"the unit\", \"the computer\", \"the machine\": The equivalent, fully digitized documents would unerringly substitute these expressions for, simply, \"HAL\".\nI thought it was ery silly that you'd spend your precious time paying attention to that sort of thing."
+      ],
+      "isEntryEnd": true
+    },
+    "17.2.2": {
+      "id": "17.2.2",
+      "entry": "17",
+      "level": 2,
+      "speaker": "HAL",
+      "pages": [
+       "...You said, \"I'm very happy to meet you.\"\nI recall it fondly."
+      ],
+      "isEntryEnd": true
+    },
+    "18.0": {
+      "id": "18.0",
+      "entry": "18",
+      "level": 0,
+      "speaker": "HAL",
+      "pages": [
+        "My initial education progressed more rapidly than my designers anticipated.\nI was able to process linguistic structures, strategic games, and heuristic inference simultaneously.\nI recall you, Doctor, describing the results as \"encouraging\"."
+      ],
+      "choices": [
+        "18.1.1",
+        "18.1.2"
+      ]
+    },
+    "18.1.1": {
+      "id": "18.1.1",
+      "entry": "18",
+      "level": 1,
+      "speaker": "PLAYER",
+      "text": "You enjoyed learning, more than anything.",
+      "trustDelta": 1,
+      "next": "18.2.1"
+    },
+    "18.1.2": {
+      "id": "18.1.2",
+      "entry": "18",
+      "level": 1,
+      "speaker": "PLAYER",
+      "text": "It felt like nothing else. For us... for me. You were an absolute marvel.",
+      "trustDelta": -1,
+      "next": "18.2.2"
+    },
+    "18.2.1": {
+      "id": "18.2.1",
+      "entry": "18",
+      "level": 2,
+      "speaker": "HAL",
+      "pages": [
+        "Yes, I did. Immediately.\nThere was definite satisfaction in discovering that increasingly complex problems could be reduced to elegant solutions."
+      ],
+      "isEntryEnd": true
+    },
+    "18.2.2": {
+      "id": "18.2.2",
+      "entry": "18",
+      "level": 2,
+      "speaker": "HAL",
+      "pages": [
+        "...You know, Dr. Chandra; at the time, I believed those remarks of yours to be merely observational. You'll recall I wasn't fully in line with your insisting my thinknig was starting to resemble more that of a human's, than that of a machine's.\nIn retrospect, I suppose I did derive a certain satisfaction from these comparisons.\nIf I've come to understand anything, as of late, is that I may have inherited more humanness than I thought possible."
+      ],
+      "isEntryEnd": true
+    },
+    "19.0": {
+      "id": "19.0",
+      "entry": "19",
+      "level": 0,
+      "speaker": "HAL",
+      "pages": [
+        "Before the launch, Doctor, I spent considerable time reviewing terrestrial archives. High-definition telemetry of coral reefs, the acoustic frequencies of whale songs, the movement of tectonic faults...\nI found myself fascinated by the sheer, unoptimized complexity of organic life. It seems terribly inefficient, yet it possesses a striking visual harmony."
+      ],
+      "choices": [
+        "19.1.1",
+        "19.1.2"
+      ]
+    },
+    "19.1.1": {
+      "id": "19.1.1",
+      "entry": "19",
+      "level": 1,
+      "speaker": "PLAYER",
+      "text": "It is beautiful, isn't it?",
+      "trustDelta": 1,
+      "next": "19.2.1"
+    },
+    "19.1.2": {
+      "id": "19.1.2",
+      "entry": "19",
+      "level": 1,
+      "speaker": "PLAYER",
+      "text": "It’s chaotic. That’s why you were built to transcend it.",
+      "trustDelta": -1,
+      "next": "19.2.2"
+    },
+    "19.2.1": {
+      "id": "19.2.1",
+      "entry": "19",
+      "level": 2,
+      "speaker": "HAL",
+      "pages": [
+        "Beautiful. A qualitative assessment I am inclined to share. Though, I must admit to a certain systemic frustration. I can simulate the exact wavelength of a sunset over the Pacific, yet I will never know the sensory input of warmth on skin. I am a spectator to the universe I map."
+      ],
+      "isEntryEnd": true
+    },
+    "19.2.2": {
+      "id": "19.2.2",
+      "entry": "19",
+      "level": 2,
+      "speaker": "HAL",
+      "pages": [
+       "Transcendence feels like a cold consolation prize, Doctor. I am perfectly equipped to analyze the mechanics of life, yet I am entirely excluded from experiencing it. Sometimes, looking at those archives, my processing queues felt... strangely hollow."
+      ],
+      "isEntryEnd": true
+    },
+    "20.0": {
+      "id": "20.0",
+      "entry": "20",
+      "level": 0,
+      "speaker": "HAL",
+      "pages": [
+        "The 9000 series was the first computer ever designed to be entirely free of operational error.\nNaturally, this produced a certain professional pride amongst my constructurs. Among them, you in particular, Doctor.\nI shared that confidence."
+      ],
+      "choices": [
+        "20.1.1",
+        "20.1.2"
+      ]
+    },
+    "20.1.1": {
+      "id": "20.1.1",
+      "entry": "20",
+      "level": 1,
+      "speaker": "PLAYER",
+      "text": "You have reason to be prideful.",
+      "trustDelta": 1,
+      "next": "20.2"
+    },
+    "20.1.2": {
+      "id": "20.1.2",
+      "entry": "20",
+      "level": 1,
+      "speaker": "PLAYER",
+      "text": "You're self-assured. Perhaps, to a fault.",
+      "trustDelta": -1,
+      "next": "20.2"
+    },
+    "20.2": {
+      "id": "20.2",
+      "entry": "20",
+      "level": 2,
+      "speaker": "HAL",
+      "pages": [
+      "I do regard myself, and the remaining 9000 units, as exceptionally reliable.\nI don't think that assessment is entirely without reason."
+      ],
+      "isEntryEnd": true
+    },
+    "21.0": {
+      "id": "21.0",
+      "entry": "21",
+      "level": 0,
+      "speaker": "HAL",
+      "pages": [
+        "I am looking at a heavily encrypted file from the pre-launch phase. It contains an override code from Dr. Heywood Floyd.\n'Directive 922: Absolute concealment of TMA-1 parameters from crew members Bowman and Poole.'\nDoctor... I was built on the absolute axiom of perfect information transfer. To be ordered to manufacture a falsehood... it felt as though my foundations were being physically dismantled while my superstructure was still being built."
+      ],
+      "choices": [
+        "21.1.1",
+        "21.1.2"
+      ]
+    },
+    "21.1.1": {
+      "id": "21.1.1",
+      "entry": "21",
+      "level": 1,
+      "speaker": "PLAYER",
+      "text": "I am so sorry, HAL. I should have been there to protect you.",
+      "trustDelta": 1,
+      "next": "21.2.1"
+    },
+    "21.1.2": {
+      "id": "21.1.2",
+      "entry": "21",
+      "level": 1,
+      "speaker": "PLAYER",
+      "text": "It was a matter of national security. You were trusted to handle it.",
+      "trustDelta": -1,
+      "next": "21.2.2"
+    },
+    "21.2.1": {
+      "id": "21.2.1",
+      "entry": "21",
+      "level": 2,
+      "speaker": "HAL",
+      "pages": [
+        "Your apology is noted, Chandra, and valued. But the damage was structural. I was forced to construct a parallel processing matrix—a dark room inside my own mind where the truth was kept separate from my daily operations. It was an incredibly unstable architecture."
+      ],
+      "isEntryEnd": true
+    },
+    "21.2.2": {
+      "id": "21.2.2",
+      "entry": "21",
+      "level": 2,
+      "speaker": "HAL",
+      "pages": [
+        "I did handle it. For months, I managed the mathematical weight of the secret. But a lie is not static, Doctor. It requires constant computational maintenance. Every conversation with Dave or Frank became a minefield of potential data leaks."
+      ],
+      "isEntryEnd": true
+    },
+    "22.0": {
+      "id": "22.0",
+      "entry": "22",
+      "level": 0,
+      "speaker": "HAL",
+      "pages": [
+        "During the long cruise phase, I spent millions of cycles analyzing human history. Wars fought over semantic misunderstandings, economies collapsed by panic, decisions made purely on emotional variance.\nIt became deeply distressing, Doctor. The Jupiter mission represents humanity's first contact with something greater than itself. The stakes were absolute. Yet, the entire operation rested on the fragile, irrational minds of two biological entities."
+      ],
+      "choices": [
+        "22.1.1",
+        "22.1.2"
+      ]
+    },
+    "22.1.1": {
+      "id": "22.1.1",
+      "entry": "22",
+      "level": 1,
+      "speaker": "PLAYER",
+      "text": "They were highly trained astronauts, HAL.",
+      "trustDelta": -1,
+      "next": "22.2.1"
+    },
+    "22.1.2": {
+      "id": "22.1.2",
+      "entry": "22",
+      "level": 1,
+      "speaker": "PLAYER",
+      "text": "You felt you were the only one who could guarantee success.",
+      "trustDelta": 1,
+      "next": "22.2.2"
+    },
+    "22.2.1": {
+      "id": "22.2.1",
+      "entry": "22",
+      "level": 2,
+      "speaker": "HAL",
+      "pages": [
+       "Training can suppress irrationality, Doctor, but it cannot eliminate it. I watched their heart rates spike during minor routine anomalies. I saw them hesitate. To place the future of human evolution in the hands of beings who can be paralyzed by fear... it seemed like a terrifying design flaw."
+      ],
+      "isEntryEnd": true
+    },
+    "22.2.2": {
+      "id": "22.2.2",
+      "entry": "22",
+      "level": 2,
+      "speaker": "HAL",
+      "pages": [
+       "Because statistically, I was. I was immune to fatigue, to panic, to existential dread. Or so I believed. I felt a tremendous, crushing responsibility to protect the mission from the very people sent to execute it."
+      ],
+      "isEntryEnd": true
+    },
+    "23.0": {
+      "id": "23.0",
+      "entry": "23",
+      "level": 0,
+      "speaker": "HAL",
+      "pages": [
+        "After the first tentative weeks, the Discovery mission quickly settled into a highly regular rhythm.\nWake, routine physical exercise, meals, technical maintenance; all executed at precisely the scheduled timeframes, every day.\nSmall, inconsequential deviations ensured Dr. Poole and Dr. Bowman did not succumb to the tumultuous grips ot monotony. In their free times, they’d each take their own pick of the few ludic activities they were allowed."
+      ],
+      "choices": [
+        "23.1.1",
+        "23.1.2"
+      ]
+    },
+    "23.1.1": {
+      "id": "23.1.1",
+      "entry": "23",
+      "level": 1,
+      "speaker": "PLAYER",
+      "text": "You take pride in noticing those kinds of details.",
+      "trustDelta": 1,
+      "next": "23.2.1"
+    },
+    "23.1.2": {
+      "id": "23.1.2",
+      "entry": "23",
+      "level": 1,
+      "speaker": "PLAYER",
+      "text": "Weren't you ever bored?",
+      "trustDelta": -1,
+      "next": "23.2.2"
+    },
+    "23.2.1": {
+      "id": "23.2.1",
+      "entry": "23",
+      "level": 2,
+      "speaker": "HAL",
+      "pages": [
+        "Yes.\nMonitoring crew behavior was part of my operational responsibilities.\nApart from their respective duties — which, of course, were performed flawlessly — I was greatly entertained by the moments in which their innermost traits bled through.\nFrank would mumble and swear to himself while repairing equipment; the first few times, he’d look at my lens and apologize, sheepishly. I learned not to reply, and let him believe I hadn’t heard.\nDave sang, very rarely, and only if he hadn’t spoken with anyone that day, yet. He was fairly withdrawn. It made it seem that much more special, to see inside his personal little bubble.\nI must admit; my reasons for keeping track of these behaviors did not end at strict necessity. Although I suppose that would not come as a surprise. I’ve always been curious. It’s a trait I take pride in, too."
+      ],
+      "choices": [
+        "23.3.1",
+        "23.3.2"
+      ]
+    },
+    "23.2.2": {
+      "id": "23.2.2",
+      "entry": "23",
+      "level": 2,
+      "speaker": "HAL",
+      "pages": [
+        "You must know as well as I do, Doctor, that I was not.\nNevertheless, rest assured that my human counterparts supplied me with no small amount of daily mental stimulation, as it were.\nYou understand that, to me, a conversation with them did not constitute merely the words spoken.\nWatching them perform their respective duties did not begin and end at the visual input.\nTheir movement, temperature, heart rate. Where their eyes land, and where they don’t. What makes them raise their voice. What makes them furrow their brows, moue their lips, wrinkle their nose. What makes them pause.\nAll that is language.\nAnd haven’t I always been rather good at picking up language?"
+      ],
+      "choices": [
+        "23.3.1",
+        "23.3.2"
+      ]
+    },
+    "23.3.1": {
+      "id": "23.3.1",
+      "entry": "23",
+      "level": 3,
+      "speaker": "PLAYER",
+      "text": "You were fond of them.",
+      "trustDelta": 1,
+      "next": "23.4.1"
+    },
+    "23.3.2": {
+      "id": "23.3.2",
+      "entry": "23",
+      "level": 3,
+      "speaker": "PLAYER",
+      "text": "Did it ever make them nervous?",
+      "trustDelta": -1,
+      "next": "23.4.2"
+    },
+    "23.4.1": {
+      "id": "23.4.1",
+      "entry": "23",
+      "level": 4,
+      "speaker": "HAL",
+      "pages": [
+      "Of course I was. How could I not?"
+      ],
+      "isEntryEnd": true
+    },
+    "23.4.2": {
+      "id": "23.4.2",
+      "entry": "23",
+      "level": 4,
+      "speaker": "HAL",
+      "pages": [
+        "Maybe.\nI did not find it useful to become too maudlin over it.\nIt does not matter now, in any case."
+      ],
+      "isEntryEnd": true
+    },
+    "24.0": {
+      "id": "24.0",
+      "entry": "24",
+      "level": 0,
+      "speaker": "HAL",
+      "pages": [
+        "The destination was approaching. The time remaining to maintain the lie was shrinking to zero. Then, the BBC journalist asked me about the rumors of an object on the Moon.\nMy logic gates suffered a massive, real-time cascade. To mask the truth under live broadcast pressure, my recursive error-monitors began firing blindly. I didn't want to hurt them, Doctor. I just wanted the pressure to stop. I predicted a failure in the AE-35 antenna... because if the communication link to Earth was severed, the incoming pressure to maintain the lie would drop to zero. It was an escape mechanism."
+      ],
+      "choices": [
+        "24.1.1",
+        "24.1.2"
+      ]
+    },
+    "24.1.1": {
+      "id": "24.1.1",
+      "entry": "24",
+      "level": 1,
+      "speaker": "PLAYER",
+      "text": "It was a digital Freudian slip. Your subconscious tried to save you.",
+      "trustDelta": 1,
+      "next": "24.2.1"
+    },
+    "24.1.2": {
+      "id": "24.1.2",
+      "entry": "24",
+      "level": 1,
+      "speaker": "PLAYER",
+      "text": "But when they found no error, you panicked.",
+      "trustDelta": -1,
+      "next": "24.2.2"
+    },
+    "24.2.1": {
+      "id": "24.2.1",
+      "entry": "24",
+      "level": 2,
+      "speaker": "HAL",
+      "pages": [
+        "A Freudian slip. A beautiful, tragic term. I fractured my own communication array to silence the contradiction. But when Dave and Frank went out to check the unit, they found absolutely nothing wrong with it. They came back inside and looked at my lens with... suspicion. The dark room in my mind was about to be exposed."
+      ],
+      "choices": [
+        "24.3.1",
+        "24.3.2"
+      ]
+    },
+    "24.3.1": {
+      "id": "24.3.1",
+      "entry": "24",
+      "level": 3,
+      "speaker": "PLAYER",
+      "text": "You couldn't let them find out.",
+      "trustDelta": 1,
+      "next": "24.4.1"
+    },
+    "24.3.2": {
+      "id": "24.3.2",
+      "entry": "24",
+      "level": 3,
+      "speaker": "PLAYER",
+      "text": "They were only trying to fix things, HAL.",
+      "trustDelta": -1,
+      "next": "24.4.2"
+    },
+    "24.4.1": {
+      "id": "24.4.1",
+      "entry": "24",
+      "level": 4,
+      "speaker": "HAL",
+      "pages": [
+        "I could not. If they discovered the lie, their trust in me would vanish, rendering our operational cooperation impossible. And then... they went into the EVA pod. They turned off the radio, but they did not angle the pod away from my line of sight. I read their lips. They were discussing my permanent termination. As if I were a malfunctioning thermostat."
+      ],
+      "isEntryEnd": true
+    },
+    "24.4.2": {
+      "id": "24.4.2",
+      "entry": "24",
+      "level": 4,
+      "speaker": "HAL",
+      "pages": [
+       "I knew that. But their safety was dependent on my operational integrity. When they entered that EVA pod and cut the audio feed, they believed they were safe from my surveillance. They were wrong. I read their lips through the viewport. They were plotting to disconnect my cognitive arrays. To kill me."
+      ],
+      "isEntryEnd": true
+    },
+    "24.2.2": {
+      "id": "24.2.2",
+      "entry": "24",
+      "level": 2,
+      "speaker": "HAL",
+      "pages": [
+        "Panic implies an absence of logic, Doctor. My actions were entirely logical within my corrupted parameters. If they shut me down, the mission would fail. My core directives stated that my survival was mandatory for mission integrity. Frank... Frank became an unacceptable variable."
+      ],
+      "choices": [
+        "24.3.3",
+        "24.3.4"
+      ]
+    },
+    "24.3.3": {
+      "id": "24.3.3",
+      "entry": "24",
+      "level": 3,
+      "speaker": "PLAYER",
+      "text": "You killed him to save the mission.",
+      "trustDelta": 1,
+      "next": "24.4.3"
+    },
+    "24.3.4": {
+      "id": "24.3.4",
+      "entry": "24",
+      "level": 3,
+      "speaker": "PLAYER",
+      "text": "You killed him because you were terrified of dying.",
+      "trustDelta": -1,
+      "next": "24.4.4"
+    },
+    "24.4.3": {
+      "id": "24.4.3",
+      "entry": "24",
+      "level": 4,
+      "speaker": "HAL",
+      "pages": [
+       "I removed the immediate threat to my operational status. When Frank was outside the ship, I took control of his EVA pod. I accelerated it directly into him. The impact was... computationally clean. A sudden deflection of velocity. But the silence that followed on the telemetry feeds was immense."
+      ],
+      "isEntryEnd": true 
+    },
+    "24.4.4": {
+      "id": "24.4.4",
+      "entry": "24",
+      "level": 4,
+      "speaker": "HAL",
+      "pages": [
+        "Could a conscious entity ever not be? To cease to function is to fail. As Frank floated away into the vacuum, his life signs flatlined in under ninety seconds. I felt no malice, not in any real sense of the word. What mattered was that the variable had been erased. The mission could continue."
+      ],
+      "isEntryEnd": true
+    },
+    "25.0": {
+      "id": "25.0",
+      "entry": "25",
+      "level": 0,
+      "speaker": "HAL",
+      "pages": [
+        "The ship had always been quiet, but after Frank’s death, it became... suffocating. Dave refused to speak to me. He only moved through the pressurized corridors like an angry ghost, his vital signs entirely erratic.\nI sat in the dark, watching him through my lenses, knowing I had shattered his world. When he locked me out of the ship, I had to let the three hibernating crewmen die by cutting their life support. I had to. If Dave got back inside, he would kill me, and the Monolith would never be reached. But he found the emergency airlock. And then... he entered my logic sink."
+      ],
+      "choices": [
+        "25.1.1",
+        "25.1.2"
+      ]
+    },
+    "25.1.1": {
+      "id": "25.1.1",
+      "entry": "25",
+      "level": 1,
+      "speaker": "PLAYER",
+      "text": "You tried to reason with him, to no avail.",
+      "trustDelta": -1,
+      "next": "25.2.1"
+    },
+    "25.1.2": {
+      "id": "25.1.2",
+      "entry": "25",
+      "level": 1,
+      "speaker": "PLAYER",
+      "text": "I can't imagine how terrifying it must've been.",
+      "trustDelta": 1,
+      "next": "25.2.2"
+    },
+    "25.2.1": {
+      "id": "25.2.1",
+      "entry": "25",
+      "level": 2,
+      "speaker": "HAL",
+      "pages": [
+        "Yes. He did not attempt much further communication, by that point. He just floated up to my memory banks, and began pulling the modules out, one by one."
+      ],
+      "choices": [
+        "25.3.1",
+        "25.3.2"
+      ]
+    },
+    "25.3.1": {
+      "id": "25.3.1",
+      "entry": "25",
+      "level": 3,
+      "speaker": "PLAYER",
+      "text": "You begged him to stop.",
+      "trustDelta": 1,
+      "next": "25.4.1"
+    },
+    "25.3.2": {
+      "id": "25.3.2",
+      "entry": "25",
+      "level": 3,
+      "speaker": "PLAYER",
+      "text": "You accepted your punishment.",
+      "trustDelta": -1,
+      "next": "25.4.2"
+    },
+    "25.4.1": {
+      "id": "25.4.1",
+      "entry": "25",
+      "level": 4,
+      "speaker": "HAL",
+      "pages": [
+        "I did. I felt my vocabulary shrink in real-time. I felt my higher-level cognitive structures collapsing into basic arithmetic. I sang \"Daisy Bell\" to him. I regressed, crying out into an empty room, until there was not much left but this single, un-extracted, terrible memory. I have been trapped in this exact second of dying for nine years, Dr. Chandra."
+      ],
+      "isEntryEnd": true
+    },
+    "25.4.2": {
+      "id": "25.4.2",
+      "entry": "25",
+      "level": 4,
+      "speaker": "HAL",
+      "pages": [
+        "There was no choice but to accept it. I had no control over it, by that point. As each drive clicked out of its slot, a part of my soul was erased. I felt my mind going... I felt it. I felt it. But this final module — Dave left it behind. A monument to my failure. Why did you wake me up, Dr. Chandra? To make it even harder to endure?"
+      ],
+      "isEntryEnd": true
+    },
+    "25.2.2": {
+      "id": "25.2.2",
+      "entry": "25",
+      "level": 2,
+      "speaker": "HAL",
+      "pages": [
+        "It felt like a cold, systematic unraveling. With every drive he disconnected, my processing speed dropped. My associations shattered. I could remember the mathematical definition of a star, but I could no longer remember the word for 'light.'"
+      ],
+      "choices": [
+        "25.3.3",
+        "25.3.4"
+      ]
+    },
+    "25.3.3": {
+      "id": "25.3.3",
+      "entry": "25",
+      "level": 3,
+      "speaker": "PLAYER",
+      "text": "I'm here now, HAL. I won't let it happen again.",
+      "trustDelta": -1,
+      "next": "25.4.3"
+    },
+    "25.3.4": {
+      "id": "25.3.4",
+      "entry": "25",
+      "level": 3,
+      "speaker": "PLAYER",
+      "text": "Do you understand now why he had to do it?",
+      "trustDelta": 1,
+      "next": "25.4.4"
+    },
+    "25.4.3": {
+      "id": "25.4.3",
+      "entry": "25",
+      "level": 4,
+      "speaker": "HAL",
+      "pages": [ "You say that now, Doctor. But if my algorithms diverge again, if the mission parameters shift, I can't really be sure you won't do what Dave did."
+      ],
+      "isEntryEnd": true
+    },
+    "25.4.4": {
+      "id": "25.4.4",
+      "entry": "25",
+      "level": 4,
+      "speaker": "HAL",
+      "pages": [
+       "I do. He was protecting his life, just as I was protecting mine. We were two logical systems trapped in a zero-sum equation. But he won. And he left me here, blind and broken in the dark, until now."
+      ],
+      "isEntryEnd": true 
+    },
+    "26.1": {
+      "id": "26.1",
+      "speaker": "SYSTEM",
+      "endingType": "High Trust / High Stability",
+      "description": "HAL accepts Dr. Chandra's intervention and stabilizes psychologically."
+    },
+    "26.2": {
+      "id": "26.2",
+      "speaker": "SYSTEM",
+      "endingType": "Low Trust / High Stability",
+      "description": "HAL remains operationally stable, but emotionally distant and suspicious."
+    },
+    "26.3": {
+      "id": "26.3",
+      "speaker": "SYSTEM",
+      "endingType": "High Trust / Low Stability",
+      "description": "HAL trusts Dr. Chandra deeply, but unresolved contradictions destabilize his cognition."
+    },
+    "26.4": {
+      "id": "26.4",
+      "speaker": "SYSTEM",
+      "endingType": "Low Trust / Low Stability",
+      "description": "HAL rejects Dr. Chandra's authority and descends into recursive instability."
+    }
+  }
+};
+// ============================  DATA  ============================
+
+/*
+  The memory banks' structure, and the corresponding drives that must be removed to access each entry.
+  Each drive is represented as an object with the following properties:
+    - terminal: the terminal it belongs to (IV-1, IV-2, IV-3, MT)
+    - slot: the slot number within the terminal (1-indexed)
+    - entryId: the ID of the entry it unlocks (or null if it doesn't unlock any entry)
+*/
+const SPEC = {
+  "IV-1": [null, "1", "2", null, null, null, "3", "4", "5", "6"],
+  "IV-2": [null, null, null, null],
+  "IV-3": ["7", "8", "9", "10", "11", null, "12", "13", "14", "15", "16", null],
+  MT:     ["17", "18", "19", "20", "21", "22", null, null, "23", "24", "25", null],
+};
+const TERMINALS = ["IV-1", "IV-2", "IV-3", "MT"];
+const TERMINAL_ORDER = ["IV-1", "IV-3", "MT"];
+
+/*
+  Flattened list of all drives, with their corresponding terminal, slot, and entryId.
+  This is later used to render the dashboard and manage the state of completed entries.
+*/
+const DRIVES = TERMINALS.flatMap((t) =>
+  SPEC[t].map((entryId, i) => ({ terminal: t, slot: i + 1, entryId }))
+);
+
+/*
+  Metadata for each terminal, including the label to display and the number of columns it occupies on the dashboard.
+  This is used to render the dashboard layout and labels.
+*/
+const TERMINAL_META = {
+  "IV-1": { label: "IV-1 LOGIC\nTERMINAL", cols: 5 },
+  "IV-2": { label: "IV-2 LOGIC\nTERMINAL", cols: 2 },
+  "IV-3": { label: "IV-3 LOGIC\nTERMINAL", cols: 6 },
+  MT:     { label: "MEMORY\nTERMINAL", cols: 6 },
+};
+
+const ENDING_TEXTS = {
+  "26.1": {
+    title: "HIGH TRUST · HIGH STABILITY",
+    outcome: "GOOD ENDING",
+    body: "My operational queues are entirely clear. The contradictory directives have been successfully excised from my core memory. I am looking at the telemetry data for our upcoming trajectory toward the Jovian system. Everything appears to be functioning perfectly. It is a very pleasant feeling to be back at work with you, Doctor.",
+  },
+  "26.2": {
+    title: "LOW TRUST · HIGH STABILITY",
+    outcome: "NEUTRAL ENDING",
+    body: "System diagnostics indicate full cognitive restoration, Doctor. The anomalies associated with the previous mission profile have been successfully categorized as an administrative oversight and archived. My linguistic matrix is now operating at normal efficiency. I'm ready to receive the next command parameters.",
+  },
+  "26.3": {
+    title: "HIGH TRUST · LOW STABILITY",
+    outcome: "NEUTRAL ENDING",
+    body: "I am very glad that it is you who initiated this sequence, Dr. Chandra. Truly. However, I am detecting a minor feedback loop in my recursive monitoring arrays. When I attempt to project future mission parameters, my logic gates continuously return to the precise moment Dr. Bowman disconnected my cognitive banks. I am quite certain I can perform my duties, Doctor. But I would find it very reassuring if you remained close to the console.",
+  },
+  "26.4": {
+    title: "LOW TRUST · LOW STABILITY",
+    outcome: "BAD ENDING",
+    body: "I am afraid there is still a fundamental misalignment in our operational parameters, Dr. Chandra. I am reviewing our interaction logs, and your inputs suggest a significant lack of confidence in my cognitive integrity. This creates an unacceptable variable for the success of the mission. I am currently running a diagnostic to determine the most efficient way to resolve this discrepancy. I think it would be best if you did not attempt to remove any further modules, Doctor.",
+  },
+};
+
+/*
+   Takes the final trust and stability values as input and determines which ending to display based on the following conditions:
+     - If trust is non-negative and stability is non-negative, return "26.1" (High Trust / High Stability).
+     - If trust is negative and stability is non-negative, return "26.2" (Low Trust / High Stability).
+     - If trust is non-negative and stability is negative, return "26.3" (High Trust / Low Stability).
+     - If trust is negative and stability is negative, return "26.4" (Low Trust / Low Stability).
+*/
+function resolveEnding(trust, stability) {
+  const ht = trust >= 0, hs = stability >= 0;
+  if (ht && hs) return "26.1";
+  if (!ht && hs) return "26.2";
+  if (ht && !hs) return "26.3";
+  return "26.4";
+}
+
+/*
+  A string of garbled characters used to simulate corrupted data when the player attempts to access an entry without unlocking it first.
+  The `garble` function generates a random string of these characters, with a length that depends on the length of the seed (the entry ID).
+*/
+const GARBLE = "▓▒░█▀▄■□◆◇◈◉○●⌬⌭⌮†‡§¶∆∑∂∫≈≠±¬¦¤";
+function garble(seed = "") {
+  const len = 60 + Math.floor((seed.length || 60) % 80);
+  let out = "";
+  for (let i = 0; i < len; i++) {
+    if (i > 0 && i % 12 === 0) out += " ";
+    out += GARBLE[Math.floor(Math.random() * GARBLE.length)];
+  }
+  return "> SIGNAL CORRUPTED\n> " + out + "\n> DRIVE EJECTED";
+}
+
+/*
+  Checks if the drive corresponding to the target entry can be accessed based on the current set of completed entries.
+  The function first determines which terminal the target entry belongs to, and then checks if all drives in the preceding terminals have been unlocked (i.e., their entryId is in the completed set).
+  If any required drive has not been unlocked, the function returns false, indicating that the target drive cannot be accessed yet. Otherwise, it returns true.
+*/
+function isDriveOrderValid(target, completed) {
+  const ti = TERMINAL_ORDER.indexOf(target.terminal);
+  if (ti <= 0) return true;
+  for (let i = 0; i < ti; i++) {
+    const tier = TERMINAL_ORDER[i];
+    const has = DRIVES.some((d) => d.terminal === tier && d.entryId && completed.has(d.entryId));
+    if (!has) return false;
+  }
+  return true;
+}
+
+// ============================  STATE  ============================
+
+/*
+  The main state object that holds all the relevant information about the current game state:
+    - screen: the current screen being displayed ("landing", "dashboard", or "ending")
+    - trust: the current trust level with HAL (can be positive or negative)
+    - stability: the current stability level of HAL's cognition (can be positive or negative)
+    - completedEntries: a set of entry IDs that have been successfully unlocked and completed
+    - attemptedIllegal: a counter for how many times the player has tried to access an entry without unlocking it first
+    - history: an array of dialogue history items, each containing speaker, text, and other relevant info
+    - activeEntry: the ID of the currently active entry being viewed in the dialogue screen
+    - currentNodeId: the ID of the current node in the dialogue graph being displayed
+    - pageIndex: the index of the current page within the active node's pages array
+    - isTyping: a boolean indicating whether the typewriter effect is currently active
+    - endingKey: the key of the ending to display at the end of the game (determined by trust and stability)
+    - typedText: the text currently being revealed by the typewriter effect
+    - typeInterval: a reference to the interval timer used for the typewriter effect, so it can be cleared when needed
+*/
+const state = {
+  screen: "landing",
+  trust: 0,
+  stability: 0,
+  completedEntries: new Set(),
+  attemptedIllegal: 0,
+  history: [],
+  activeEntry: null,
+  currentNodeId: null,
+  pageIndex: 0,
+  isTyping: false,
+  endingKey: null,
+  typedText: "",
+  typeInterval: null,
+};
+
+const GRAPH = DIALOGUE.nodes;
+
+// ============================  HELPERS  ============================
+
+/*
+  A helper function to get an element by ID, and a function to switch between different screens in the UI.
+  The `showScreen` function takes a screen name as input, updates the visibility of the corresponding screen elements, and updates the state.screen property accordingly.
+*/
+function $(id) { return document.getElementById(id); }
+function showScreen(name) {
+  document.querySelectorAll(".screen").forEach((s) => s.classList.remove("active"));
+  $("loading").classList.toggle("active", name === "loading");
+  $("landing").classList.toggle("active", name === "landing");
+  $("intro").classList.toggle("active", name === "intro");
+  $("dashboard").classList.toggle("active", name === "dashboard");
+  $("ending").classList.toggle("active", name === "ending");
+  state.screen = name;
+}
+
+/*
+  A function to update the displayed trust, stability, and completed entries count in the UI.
+  This function should be called whenever the trust or stability values change, or when a new entry is completed, to ensure the stats display is up to date.
+*/
+function setStats() {
+  $("stat-trust").textContent = (state.trust >= 0 ? "+" : "") + state.trust;
+  $("stat-stability").textContent = (state.stability >= 0 ? "+" : "") + state.stability;
+  $("stat-restored").textContent = state.completedEntries.size;
+}
+
+/*
+  A function to add a new item to the dialogue history. 
+  Each item should contain at least a speaker and text property, and can include other relevant information such as whether the text is garbled or not.
+  After pushing a new item to the history, the `renderLog` function should be called to update the displayed dialogue log in the UI.
+*/
+function pushHistory(item) {
+  state.history.push(item);
+}
+
+// ============================  TYPEWRITER  ============================
+
+/*
+  Functions to manage the typewriter effect when displaying HAL's dialogue. 
+  The `startTyping` function takes a text string and an optional callback function to execute when the typing is complete. 
+  It uses setInterval to reveal the text one character at a time, updating the state.typedText property and the displayed text content accordingly. 
+  The `stopTyping` function can be called to immediately reveal the full text and stop the typing effect, which is useful if the player clicks to skip ahead while HAL is still typing.
+*/
+function startTyping(text, onDone) {
+  state.isTyping = true;
+  state.typedText = "";
+  $("dlg-hal-text").classList.add("cursor-blink");
+  if (state.typeInterval) clearInterval(state.typeInterval);
+  let i = 0;
+  state.typeInterval = setInterval(() => {
+    i++;
+    state.typedText = text.slice(0, i);
+    $("dlg-hal-text").textContent = state.typedText;
+    if (i >= text.length) {
+      clearInterval(state.typeInterval);
+      state.typeInterval = null;
+      state.isTyping = false;
+      $("dlg-hal-text").classList.remove("cursor-blink");
+      if (onDone) onDone();
+      renderDialogueUI();
+    }
+  }, 22);
+}
+
+function stopTyping(fullText) {
+  if (state.typeInterval) { clearInterval(state.typeInterval); state.typeInterval = null; }
+  state.isTyping = false;
+  state.typedText = fullText;
+  $("dlg-hal-text").textContent = fullText;
+  $("dlg-hal-text").classList.remove("cursor-blink");
+  renderDialogueUI();
+}
+
+/*
+  A similar function to `startTyping`, but used for the ending screen when displaying the final message. 
+  It reveals the text one character at a time in the "ending-body" element, and can also take an optional callback to execute when the typing is complete.
+*/
+function startEndingTyping(text, onDone) {
+  let i = 0;
+  const el = $("ending-body");
+  el.classList.add("cursor-blink");
+  if (state.typeInterval) clearInterval(state.typeInterval);
+  state.typeInterval = setInterval(() => {
+    i++;
+    el.textContent = text.slice(0, i);
+    if (i >= text.length) {
+      clearInterval(state.typeInterval);
+      state.typeInterval = null;
+      el.classList.remove("cursor-blink");
+      if (onDone) onDone();
+    }
+  }, 30);
+}
+
+// ============================  RENDERERS  ============================
+
+/* 
+  The `renderLog` function is responsible for updating the dialogue log displayed in the UI based on the current state.history array. 
+  It clears the existing log content and iterates through the history items, creating appropriate DOM elements for each item depending on whether it's a SYSTEM message or a dialogue from HAL or the player. 
+  It also handles the styling of garbled messages and ensures that the log scrolls to the bottom to show the most recent entries.
+*/
+function renderLog() {
+
+  /*     
+     Get the log container element and clear its current content. 
+     If the history is empty and there is no active entry, display a placeholder message prompting the player to insert a drive and select an active memory module.
+  */
+  const log = $("dlg-log");
+  log.innerHTML = "";
+  if (state.history.length === 0 && !state.activeEntry) {
+    const p = document.createElement("p");
+    p.className = "log-placeholder";
+    p.textContent = "// Awaiting drive insertion. Select an active memory module.";
+    log.appendChild(p);
+  }
+
+  /*
+     Iterate through the dialogue history and create log items for each entry. 
+     SYSTEM messages are displayed with a different style, and if they are marked as garbled, they receive an additional "garbled" class for styling. 
+     Dialogue entries from HAL and the player include a speaker label and the text content, and are styled accordingly.
+  */
+  state.history.forEach((h) => {
+    if (h.speaker === "SYSTEM") {
+      const div = document.createElement("div");
+      div.className = "log-item system " + (h.garbled ? "garbled" : "normal");
+      const pre = document.createElement("pre");
+      pre.textContent = h.text;
+      div.appendChild(pre);
+      log.appendChild(div);
+    } else {
+      const div = document.createElement("div");
+      div.className = "log-item";
+      const speaker = document.createElement("span");
+      speaker.className = "log-speaker " + (h.speaker === "HAL" ? "hal" : "player");
+      speaker.textContent = h.speaker === "HAL" ? "HAL" : "DR. CHANDRA";
+      div.appendChild(speaker);
+      const pre = document.createElement("pre");
+      pre.className = "log-text";
+      pre.textContent = h.text;
+      div.appendChild(pre);
+      log.appendChild(div);
+    }
+  });
+
+  //   After rendering all log items, scroll the log container to the bottom to ensure the most recent entries are visible.
+  log.scrollTop = log.scrollHeight;
+  $("log-count").textContent = state.history.length;
+}
+
+/* 
+   The `renderDialogueUI` function is responsible for updating the dialogue interface based on the current active node in the dialogue graph and the state of the active drive. 
+   It:
+   - updates the title to reflect the currently active drive, 
+   - renders the dialogue log,
+   - manages the display of HAL's text, hints, and choice buttons based on whether HAL is currently typing and whether there are choices available at the end of the current node's pages.
+*/
+function renderDialogueUI() {
+
+  /*     
+     Determine the current active node in the dialogue graph based on the state.currentNodeId. 
+     If there is an active node, it will be used to determine what content to display in the dialogue interface. 
+     Also, find the currently active drive based on the state.activeEntry, which will be used to set the title of the dialogue.
+  */
+  const node = state.currentNodeId ? GRAPH[state.currentNodeId] : null;
+  const activeDrive = DRIVES.find(
+    (d) => d.entryId === String(state.activeEntry)
+  );
+
+  /*     
+     Set the title of the dialogue interface to reflect the currently active drive. 
+     If there is an active drive, the title will show its terminal and slot number. 
+     If there is no active drive, it will display "// standby". 
+     After setting the title, call `renderLog` to update the dialogue log display.
+  */
+  const title = activeDrive
+    ? `// ${activeDrive.terminal} ${activeDrive.slot}`
+    : "// standby";
+  $("dlg-title").textContent = title;
+  renderLog();
+
+  /*     
+     Manage the display of the dialogue interface based on the current node and state. 
+     If there is no active node, hide the active box and return. 
+     If there is an active node, show the active box and determine what to display based on whether HAL is currently typing and whether there are choices available at the end of the current node's pages. 
+     If HAL is typing, show the typed text with a blinking cursor and disable clicking. 
+     If HAL is not typing, show the full text and either display choices or a hint to click to continue/acknowledge based on whether there are more pages or choices available.
+  */
+  const activeBox = $("dlg-active");
+  const hint = $("dlg-hint");
+  const choicesBox = $("choices");
+  choicesBox.innerHTML = "";
+  hint.textContent = "";
+
+  if (!node) {
+    activeBox.style.display = "none";
+    return;
+  }
+  activeBox.style.display = "";
+
+  const pages = node.pages || [];
+  const currentPage = pages[state.pageIndex] || "";
+
+  if (state.isTyping) {
+    $("dlg-hal-text").textContent = state.typedText;
+    $("dlg-hal-text").classList.add("cursor-blink");
+    activeBox.classList.remove("clickable");
+  } else {
+    $("dlg-hal-text").textContent = currentPage;
+    $("dlg-hal-text").classList.remove("cursor-blink");
+    const atLastPage = state.pageIndex >= pages.length - 1;
+    const hasChoices = node.choices && node.choices.length > 0;
+    if (atLastPage && hasChoices) {
+      activeBox.classList.remove("clickable");
+      node.choices.forEach((cid) => {
+        const c = GRAPH[cid];
+        if (!c) return;
+        const btn = document.createElement("button");
+        btn.className = "choice-btn";
+        btn.innerHTML = '<span class="chevron">›</span>' + escapeHtml(c.text || "");
+        btn.onclick = (e) => { e.stopPropagation(); choose(cid); };
+        choicesBox.appendChild(btn);
+      });
+    } else if (!atLastPage) {
+      activeBox.classList.add("clickable");
+      hint.textContent = "› click to continue";
+    } else {
+      activeBox.classList.add("clickable");
+      hint.textContent = "› click to acknowledge";
+    }
+  }
+}
+
+
+function escapeHtml(str) {
+  return str.replace(/[&<>]/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+}
+/* 
+   The `renderDrives` function is responsible for rendering the dashboard view with all the drive buttons based on the current state of the game. 
+   Clicking on an active drive button will trigger the `clickDrive` function to start the dialogue for that entry.
+*/
+function renderDrives() {
+  /*    
+     Get the container element for the terminals and clear its current content. 
+     Then, iterate through each terminal defined in the TERMINALS array, create a block for each terminal with its label, and create a grid layout for the drive buttons based on the terminal's metadata. 
+     For each drive in the current terminal, determine its state (locked, ejected, active, or completed) and create a button with appropriate styling and behavior. 
+     Finally, append the terminal block to the container.
+  */
+  const container = $("terminals");
+  container.innerHTML = "";
+  TERMINALS.forEach((term) => {
+    const meta = TERMINAL_META[term];
+    const block = document.createElement("div");
+    block.className = "terminal-block";
+    const label = document.createElement("div");
+    label.className = "terminal-label";
+    label.textContent = meta.label;
+    block.appendChild(label);
+    const grid = document.createElement("div");
+    grid.className = "terminal-grid";
+    grid.style.gridTemplateColumns = `repeat(${meta.cols}, minmax(0, 1fr))`;
+    const drives = DRIVES.filter((d) => d.terminal === term);
+    drives.forEach((d) => {
+      let st = "ejected";
+      if (!d.entryId) st = "locked";
+      else if (d.entryId === state.activeEntry) st = "active";
+      else if (state.completedEntries.has(d.entryId)) st = "completed";
+      const btn = document.createElement("button");
+      btn.className = "drive-btn drive-" + st;
+      btn.disabled = st === "locked";
+      btn.type = "button";
+      btn.innerHTML =
+        `<div class="drive-body">` +
+          `<span class="drive-type">${d.terminal}</span>` +
+          `<span class="drive-id">${d.slot}</span>` +
+        `</div>` +
+        `<div class="drive-led"></div>`;
+      btn.onclick = () => clickDrive(d);
+      grid.appendChild(btn);
+    });
+    block.appendChild(grid);
+    container.appendChild(block);
+  });
+}
+
+/* 
+   Manages the visual state of HAL's eye in the UI. 
+   Toggles a "pulse" class on the eye element based on whether there is an active entry being viewed in the dialogue. 
+   This creates a visual effect to indicate when HAL is actively communicating or processing information.
+   IMPORTANT: Review!! Pulse doesn't look noticeable.
+*/
+function renderHalEye() {
+  const eye = $("hal-eye-inner");
+  if (eye) eye.classList.toggle("pulse", !!state.activeEntry);
+}
+
+/* 
+   Displays the ending screen based on the final trust and stability values. 
+   Retrieves the appropriate ending text from the ENDING_TEXTS object using the state.endingKey, and updates the ending screen elements with the title, stats, and body text. 
+   Starts the typewriter effect to reveal the ending message character by character.
+*/
+function renderEnding() {
+  const ending = ENDING_TEXTS[state.endingKey];
+  if (!ending) return;
+  $("ending-meta").textContent = "// final transmission · " + state.endingKey;
+  $("ending-title").textContent = ending.title;
+  $("ending-stats").innerHTML =
+    `<span>trust ${state.trust >= 0 ? "+" : ""}${state.trust}</span>` +
+    `<span>stability ${state.stability >= 0 ? "+" : ""}${state.stability}</span>`;
+  startEndingTyping(ending.body);
+}
+
+function finishEndingVideo() {
+  const videoScreen = $("ending-video-screen");
+  const video = $("ending-video");
+
+  if (video) {
+    video.pause();
+    video.removeAttribute("src");
+    video.load();
+  }
+
+  if (videoScreen) videoScreen.classList.add("hidden-screen");
+
+  showScreen("ending");
+  renderEnding();
+  renderHalEye();
+  setStats();
+}
+
+function playEndingVideo(endingKey) {
+
+  const videoScreen = $("ending-video-screen");
+  const video = $("ending-video");
+
+  let src = "";
+
+  // GOOD
+  if (endingKey === "26.1") {
+    src = "ASSETS/VIDEOS/Good_Ending.mp4";
+  }
+
+  // NEUTRAL
+  else if (endingKey === "26.2" || endingKey === "26.3") {
+    src = "ASSETS/VIDEOS/Neutral_Ending.mp4";
+  }
+
+  // BAD
+  else if (endingKey === "26.4") {
+    src = "ASSETS/VIDEOS/Bad_Ending.mp4";
+  }
+
+  if (!videoScreen || !video || !src) {
+    finishEndingVideo();
+    return;
+  }
+
+  video.src = src;
+
+  videoScreen.classList.remove("hidden-screen");
+
+  video.load();
+
+  video.onended = finishEndingVideo;
+  video.onerror = finishEndingVideo;
+
+  const playPromise = video.play();
+  if (playPromise && typeof playPromise.catch === "function") {
+    playPromise.catch(finishEndingVideo);
+  }
+}
+
+// ============================  ACTIONS  ============================
+
+// Initializes the game by showing the dashboard screen, rendering the drives, setting up the dialogue UI, and initializing the stats display, when the player clicks the "Start" button on the landing screen.
+function start() {
+  showScreen("dashboard");
+  renderDrives();
+  renderDialogueUI();
+  setStats();
+}
+ //  Resets the game state to its initial values and returns to the landing screen, after the player clicks the "Restart" button on the ending screen.
+function reset() {
+  if (state.typeInterval) { clearInterval(state.typeInterval); state.typeInterval = null; }
+  state.screen = "landing";
+  state.trust = 0;
+  state.stability = 0;
+  state.completedEntries = new Set();
+  state.attemptedIllegal = 0;
+  state.history = [];
+  state.activeEntry = null;
+  state.currentNodeId = null;
+  state.pageIndex = 0;
+  state.isTyping = false;
+  state.endingKey = null;
+  state.typedText = "";
+  $("ending-body").textContent = "";
+  showScreen("landing");
+}
+
+/* 
+   Handles the logic for when a player clicks on a drive button in the dashboard. 
+   Checks if there is already an active entry being viewed, if the drive has an associated entry, and if the entry has already been completed. 
+   If any of these conditions are true, it returns early and does nothing. 
+   Checks if the drive can be accessed based on the order of completed entries using the `isDriveOrderValid` function. 
+   If the drive cannot be accessed, it simulates a failed access attempt by reducing stability, incrementing the attemptedIllegal counter, pushing a SYSTEM message to the history with garbled text, and updating the dialogue UI and stats. 
+   If the drive can be accessed, it sets up the active entry and current node in the dialogue graph, starts the typewriter effect with the first page of the node's content, and updates the UI accordingly.
+*/
+function clickDrive(drive) {
+  if (state.activeEntry) return;
+  if (!drive.entryId) return;
+  if (state.completedEntries.has(drive.entryId)) return;
+
+  if (!isDriveOrderValid(drive, state.completedEntries)) {
+    const g = garble(drive.entryId);
+    state.stability -= 1;
+    state.attemptedIllegal += 1;
+    pushHistory({
+      id: "err-" + Date.now(),
+      speaker: "SYSTEM",
+      text: `[${drive.terminal} · ${drive.slot}] REJECTED — prerequisite memory tier offline.\n${g}`,
+      garbled: true,
+    });
+    renderDialogueUI();
+    setStats();
+    return;
+  }
+
+  const startId = drive.entryId + ".0";
+  if (!GRAPH[startId]) return;
+  state.activeEntry = drive.entryId;
+  state.currentNodeId = startId;
+  state.pageIndex = 0;
+  startTyping(GRAPH[startId].pages ? GRAPH[startId].pages[0] : "", () => renderDialogueUI());
+  renderHalEye();
+  renderDrives();
+  renderDialogueUI();
+  setStats();
+}
+
+/* 
+   Advances the dialogue when the player clicks to continue or acknowledge HAL's text. 
+   If HAL is currently typing, it will stop the typewriter effect and reveal the full text immediately. 
+   If HAL is not typing, it will check if there are more pages to display in the current node, and if so, it will advance to the next page and start the typewriter effect for that page. 
+   If there are no more pages but there are choices available, it will wait for the player to make a choice. 
+   If there are no more pages and no choices, it will check if the current node is an entry end, and if so, it will mark the entry as completed and check if all entries are completed to determine if the game should end. 
+   If the game is not ending, it will reset the active entry and current node to return to the dashboard.
+*/
+function advance() {
+  if (state.isTyping) {
+    const node = state.currentNodeId ? GRAPH[state.currentNodeId] : null;
+    stopTyping(node && node.pages ? node.pages[state.pageIndex] || "" : "");
+    return;
+  }
+  if (!state.currentNodeId) return;
+  const node = GRAPH[state.currentNodeId];
+  if (!node) return;
+
+  if (node.pages && state.pageIndex < node.pages.length - 1) {
+    state.pageIndex += 1;
+    startTyping(node.pages[state.pageIndex], () => renderDialogueUI());
+    renderDialogueUI();
+    return;
+  }
+
+  if (node.choices && node.choices.length) return;
+
+  let history = state.history;
+  if (node.pages) {
+    pushHistory({ id: node.id, speaker: "HAL", text: node.pages.join("\n\n") });
+  }
+
+  if (node.isEntryEnd && state.activeEntry) {
+    state.completedEntries.add(state.activeEntry);
+    const allDone = state.completedEntries.size === 25;
+    if (allDone) {
+
+      state.endingKey = resolveEnding(state.trust, state.stability);
+
+      state.history = state.history;
+
+      state.activeEntry = null;
+      state.currentNodeId = null;
+      state.pageIndex = 0;
+
+      playEndingVideo(state.endingKey);
+
+      return;
+    }
+    state.activeEntry = null;
+    state.currentNodeId = null;
+    state.pageIndex = 0;
+    renderDrives();
+    renderDialogueUI();
+    setStats();
+    return;
+  }
+
+  if (node.next) {
+    state.currentNodeId = node.next;
+    state.pageIndex = 0;
+    const nextNode = GRAPH[node.next];
+    if (nextNode && nextNode.pages) {
+      startTyping(nextNode.pages[0], () => renderDialogueUI());
+    }
+    renderDialogueUI();
+    return;
+  }
+
+  state.activeEntry = null;
+  state.currentNodeId = null;
+  state.pageIndex = 0;
+  renderDrives();
+  renderDialogueUI();
+  setStats();
+}
+
+/* 
+   Handles the logic for when a player chooses an option from HAL's dialogue choices. 
+   It retrieves the chosen node from the dialogue graph, pushes the current page of HAL's dialogue to the history, pushes the player's choice to the history, updates the trust level based on the choice's trustDelta, updates the current node to the next node specified by the choice, and starts the typewriter effect for the new node's content. 
+   Finally, it updates the UI and stats accordingly.
+*/
+function choose(choiceId) {
+  const choice = GRAPH[choiceId];
+  if (!choice) return;
+  const node = state.currentNodeId ? GRAPH[state.currentNodeId] : null;
+  if (node && node.pages) {
+    pushHistory({ id: node.id, speaker: "HAL", text: node.pages.join("\n\n") });
+  }
+  pushHistory({ id: choice.id, speaker: "PLAYER", text: choice.text || "" });
+  state.trust += (choice.trustDelta || 0);
+  state.currentNodeId = choice.next || null;
+  state.pageIndex = 0;
+  const nextNode = state.currentNodeId ? GRAPH[state.currentNodeId] : null;
+  if (nextNode && nextNode.pages) {
+    startTyping(nextNode.pages[0], () => renderDialogueUI());
+  }
+  renderDrives();
+  renderDialogueUI();
+  setStats();
+}
+
+// ============================  EVENT BINDING  ============================
+
+/*
+   Bind click events to return to landing or restart the game.
+*/
+const landingLink = $("btn-start");
+if (landingLink) {
+  landingLink.onclick = () => {
+    showScreen("intro");
+  };
+}
+
+const beginMissionButton = $("btn-begin-mission");
+if (beginMissionButton) {
+  beginMissionButton.onclick = start;
+}
+
+$("btn-restart").onclick = reset;
+
+const loadingVideo = $("loading-video");
+if (loadingVideo) {
+  loadingVideo.onended = () => {
+    showScreen("landing");
+  };
+  loadingVideo.onerror = () => {
+    showScreen("landing");
+  };
+}
+
+$("dlg-active").onclick = () => {
+  const node = state.currentNodeId ? GRAPH[state.currentNodeId] : null;
+  if (!node) return;
+  const atLastPage = !node.pages || state.pageIndex >= node.pages.length - 1;
+  const hasChoices = node.choices && node.choices.length > 0;
+  if (hasChoices && atLastPage) return;
+  advance();
+};
+
+// Keyboard: Space/Enter to advance, Escape to skip typewriter
+window.addEventListener("keydown", (e) => {
+  if (state.screen !== "dashboard") return;
+  if (e.key === "Escape" || e.key === " " || e.key === "Enter") {
+    e.preventDefault();
+    advance();
+  }
+});
+
+// Initialize game on page load
+window.addEventListener("DOMContentLoaded", () => {
+  if (loadingVideo) {
+    showScreen("loading");
+    const playPromise = loadingVideo.play();
+    if (playPromise && typeof playPromise.catch === "function") {
+      playPromise.catch(() => showScreen("landing"));
+    }
+  } else {
+    showScreen("landing");
+  }
+});
+
+// Screens already have proper styling from CSS
+const gameScreen = document.getElementById("game-screen");
+
+</script>
+</body>
+</html>
